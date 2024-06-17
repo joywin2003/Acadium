@@ -7,14 +7,83 @@ generator client {
 
 // prisma/schema.prisma
 datasource db {
-  provider  = "postgresql"
-  url  	    = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id        String   @id @default(cuid())
+    email     String   @unique
+    role      String
+    password  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Student {
-  USN       String      @id @unique
-  name      String
-  email     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    id      String @id @default(cuid())
+    usn     String @unique
+    name    String
+    email   String
+    phone   String
+    branch  String
+    section String
+}
+
+model Faculty {
+    id       String @id @default(cuid())
+    name     String
+    email    String
+    phone    String
+    branch   String
+    subjects String
+}
+
+model Academics {
+    id        Int    @id @default(autoincrement())
+    usn       String
+    sem       Int
+    sgpa      Float
+    cgpa      Float
+    backlogs  Int
+    mentor_id Int
+    //   Student   Student @relation(fields: [usn], references: [usn])
+    //   Faculty   Faculty @relation(fields: [mentor_id], references: [id])
+}
+
+model Circulars {
+    id         String @id @default(cuid())
+    title      String
+    content    String
+    attachment String
+    admin_id   String
+    //   User      User   @relation(fields: [admin_id], references: [id])
+}
+
+model Subjects {
+    subject_code String @id
+    name         String
+    credit       Int
+    internal     Int
+    external     Int
+    faculty_id   String
+    academic_id  Int
+    //   Faculty      Faculty  @relation(fields: [faculty_id], references: [id])
+    //   Academics    Academics @relation(fields: [academic_id], references: [id])
+}
+
+model Sections {
+    id             String @id
+    name           String
+    class_guide_id String
+    //   Faculty       Faculty @relation(fields: [class_guide_id], references: [id])
+}
+
+model Department {
+    id             String @id
+    name           String
+    hod_id         String
+    secratory_id   String
+    secratory_name String
+    phone          String
 }
