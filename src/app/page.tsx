@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { db } from "~/server/db";
-import {LoginButton} from "~/app/_components/login-button";
+import {LoginButton} from "~/components/login-button";
 
 
 export default async function Home() {

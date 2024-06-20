@@ -4,3 +4,5 @@ export const loginSchema = z.object({
     email: z.string().email().regex(/^[^\s@]+@sjec\.ac\.in$/),
     password: z.string(),
 });
+
+export type TLoginSchema = z.infer<typeof loginSchema>;
