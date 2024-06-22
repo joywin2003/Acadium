@@ -12,43 +12,43 @@ datasource db {
 }
 
 model User {
-    id         String       @id @default(cuid())
+    id         String       @id 
     email      String       @unique
     role       String
     password   String
     createdAt  DateTime     @default(now())
     updatedAt  DateTime     @updatedAt
-    Student    Student?
-    Faculty    Faculty?
-    Department Department?
+    // Student    Student?
+    // Faculty    Faculty?
+    // Department Department?
 }
 
 model Student {
-    id         String      @id
+    id         String      @id @default(cuid())
     usn        String      @unique
     name       String
     email      String
     phone      String
     branch     String
     section    String
-    Academics  Academics[]
-    User       User        @relation(fields: [id], references: [id])
-    Department Department  @relation(fields: [branch], references: [name])
-    Sections   Sections    @relation(fields: [section], references: [id])
+    // Academics  Academics[]
+    // User       User        @relation(fields: [id], references: [id])
+    // Department Department  @relation(fields: [branch], references: [name])
+    // Sections   Sections    @relation(fields: [section], references: [id])
 }
 
 model Faculty {
-    id         String      @id
+    id         String      @id @default(cuid())
     name       String
     email      String
     phone      String
     branch     String
     subjects   String
-    User       User        @relation(fields: [id], references: [id])
-    Department Department  @relation(fields: [branch], references: [name])
-    Academics  Academics[]
-    Subjects   Subjects[]
-    Sections   Sections[]
+    // User       User        @relation(fields: [id], references: [id])
+    // Department Department  @relation(fields: [branch], references: [name])
+    // Academics  Academics[]
+    // Subjects   Subjects[]
+    // Sections   Sections[]
 }
 
 model Academics {
@@ -59,10 +59,11 @@ model Academics {
     cgpa      Float
     backlogs  Int
     mentor_id String
-    Student   Student    @relation(fields: [usn], references: [usn])
-    Faculty   Faculty    @relation(fields: [mentor_id], references: [id])
-    Subjects  Subjects[]
+    // Student   Student[]
+    // Faculty   Faculty[]
+    // Subjects  Subjects[]
 }
+
 
 model Circulars {
     id         String     @id @default(cuid())
@@ -70,7 +71,7 @@ model Circulars {
     content    String
     attachment String
     admin_id   String
-    Department Department @relation(fields: [admin_id], references: [secratory_id])
+    // Department Department @relation(fields: [admin_id], references: [secratory_id])
 }
 
 model Subjects {
@@ -81,16 +82,16 @@ model Subjects {
     external     Int
     faculty_id   String
     academic_id  Int
-    Faculty      Faculty[]
-    Academics    Academics[]
+    // Faculty      Faculty[]
+    // Academics    Academics[]
 }
 
 model Sections {
     id             String    @id
     name           String
     class_guide_id String
-    Student        Student[]
-    Faculty        Faculty[]
+    // Student        Student[]
+    // Faculty        Faculty[]
 }
 
 model Department {
@@ -100,8 +101,8 @@ model Department {
     secratory_id   String      @unique
     secratory_name String
     phone          String
-    Circulars      Circulars[]
-    User           User        @relation(fields: [secratory_id], references: [id])
-    Student        Student[]
-    Faculty        Faculty[]
+    // Circulars      Circulars[]
+    // User           User        @relation(fields: [secratory_id], references: [id])
+    // Student        Student[]
+    // Faculty        Faculty[]
 }
