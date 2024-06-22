@@ -1,11 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 
-import { cn } from "~/lib/utils";
-import { buttonVariants } from "./ui/button";
+import Acadium from "~/app/components/acadium.json";
 import Login from "../login/page";
 import { Lottie } from "./common/lottie";
-import Acadium from "~/app/components/acadium.json";
 
 export default function AuthenticationPage() {
   return (

@@ -1,8 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "../components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,9 +8,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "../components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { TLoginSchema, loginSchema } from "~/server/api/schema/zod-schema";
-
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Login() {
@@ -84,7 +83,7 @@ const LoginForm = (role: { role: string }) => {
               </FormItem>
             )}
           />
-          <Button className="w-full my-4" type="submit">Submit</Button>
+          <Button className="w-full my-4" type="submit">Login</Button>
         </form>
       </Form>
     </div>
