@@ -18,9 +18,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Login() {
   return (
-    <div className="flex h-52 w-48 rounded-lg border">
+    <div className="flex h-68 min-w-60  p-4 rounded-lg border">
       <Tabs defaultValue="student" className="w-[400px]">
-        <TabsList>
+        <TabsList className="grid w-full grid-cols-3 gap-1">
           <TabsTrigger value="student">Student</TabsTrigger>
           <TabsTrigger value="faculty">Faculty</TabsTrigger>
           <TabsTrigger value="admin">Admin</TabsTrigger>
@@ -84,7 +84,7 @@ const LoginForm = (role: { role: string }) => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button className="w-full my-4" type="submit">Submit</Button>
         </form>
       </Form>
     </div>
