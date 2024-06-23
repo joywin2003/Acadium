@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import Acadium from "~/app/components/acadium.json";
+import Acadium from "~/components/acadium.json";
 import Login from "../app/login/page";
 import { Lottie } from "./common/lottie";
 
