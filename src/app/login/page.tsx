@@ -7,17 +7,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "~/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { TLoginSchema, loginSchema } from "~/server/api/schema/zod-schema";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   return (
-    <div className="flex h-68 min-w-60  p-4 rounded-lg border">
+    <div className="h-68 flex min-w-60  rounded-lg border p-4">
       <Tabs defaultValue="student" className="w-[400px]">
         <TabsList className="grid w-full grid-cols-3 gap-1">
           <TabsTrigger value="student">Student</TabsTrigger>
@@ -38,7 +39,7 @@ export default function Login() {
   );
 }
 
-import React from "react";
+import React, { use } from "react";
 
 const LoginForm = (role: { role: string }) => {
   const form = useForm<TLoginSchema>({
@@ -49,9 +50,21 @@ const LoginForm = (role: { role: string }) => {
       role: "student",
     },
   });
-
+  const router = useRouter();
   const onLogin = (data: TLoginSchema) => {
     console.log(data);
+
+    const { email, password, role } = data;
+    if (role === "student") {
+      console.log("student login");
+    }
+    if (role === "faculty") {
+      console.log("faculty login");
+    }
+    if (role === "admin") {
+      console.log("admin login");
+    }
+    router.push("/");
   };
   return (
     <div>
@@ -83,7 +96,9 @@ const LoginForm = (role: { role: string }) => {
               </FormItem>
             )}
           />
-          <Button className="w-full my-4" type="submit">Login</Button>
+          <Button className="my-4 w-full" type="submit">
+            Login
+          </Button>
         </form>
       </Form>
     </div>

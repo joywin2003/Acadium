@@ -1,10 +1,5 @@
-import AuthenticationPage from "./components/AuthenticationPage";
-
+import AuthenticationPage from "../components/AuthenticationPage";
 
 export default async function Home() {
-  return (
-    <AuthenticationPage />
-  );
+  return <AuthenticationPage />;
 }
-
-
