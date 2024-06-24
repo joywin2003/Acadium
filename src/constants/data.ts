@@ -2,10 +2,10 @@ import { NavItem, SidebarNavItem } from '~/types';
 
 export const navItems: NavItem[] = [
     {
-      title: 'Dashboard',
+      title: 'Email',
       href: '/dashboard',
       icon: 'dashboard',
-      label: 'Dashboard'
+      label: 'News'
     },
     {
       title: 'User',
