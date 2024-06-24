@@ -1,21 +1,7 @@
-"use client"
-
+"use client";
 import * as React from "react"
-import {
-  AlertCircle,
-  Archive,
-  ArchiveX,
-  File,
-  Inbox,
-  MessagesSquare,
-  Search,
-  Send,
-  ShoppingCart,
-  Trash2,
-  Users2,
-} from "lucide-react"
+import { Search } from "lucide-react";
 
-import { cn } from "~/lib/utils"
 import { Input } from "~/components/ui/input"
 import {
   ResizableHandle,
@@ -30,10 +16,10 @@ import {
   TabsTrigger,
 } from "~/components/ui/tabs"
 import { TooltipProvider } from "~/components/ui/tooltip"
-import { MailDisplay } from "~/components/mail-display"
 import { MailList } from "~/components/mail-list"
 import { type Mail } from "~/components/data"
 import { useMail } from "~/hooks/use-mail"
+import { MailDisplay } from "./mail-display";
 
 interface MailProps {
   mails: Mail[]
@@ -99,11 +85,11 @@ export function Mail({
           </Tabs>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        {/* <ResizablePanel defaultSize={defaultLayout[2]}>
+        <ResizablePanel defaultSize={defaultLayout[2]}>
           <MailDisplay
             mail={mails.find((item) => item.id === mail.selected) || null}
           />
-        </ResizablePanel> */}
+        </ResizablePanel>
       </ResizablePanelGroup>
     </TooltipProvider>
     </div>

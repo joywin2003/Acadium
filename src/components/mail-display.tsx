@@ -41,16 +41,18 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip"
 import { Mail } from "~/components/data"
+import { cn } from "~/lib/utils"
 
 interface MailDisplayProps {
   mail: Mail | null
+  className?: string
 }
 
-export function MailDisplay({ mail }: MailDisplayProps) {
+export function MailDisplay({ mail, className }: MailDisplayProps) {
   const today = new Date()
 
   return (
-    <div className="flex h-full flex-col">
+    <div className={cn("flex h-full flex-col",className)}>
       <div className="flex items-center p-2">
         <div className="flex items-center gap-2">
           <Tooltip>
