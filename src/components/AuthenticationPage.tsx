@@ -10,7 +10,7 @@ export default function AuthenticationPage() {
   return (
     <>
       <div className="container relative h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-        <div className="absolute right-4 top-4 md:right-8 md:top-8">
+        <div className="absolute right-4 top-8 md:right-8 md:top-8">
           <ThemeToggle />
         </div>
 
@@ -45,7 +45,7 @@ export default function AuthenticationPage() {
           </div>
         </div>
         <div className="lg:p-8">
-          <div className="relative z-20 flex items-center py-8 text-lg font-medium lg:hidden">
+          <div className="relative right-4  top-0 z-20 flex items-center py-8 text-lg font-medium md:absolute md:left-8 lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
