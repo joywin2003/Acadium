@@ -50,6 +50,7 @@ export function Mail({
   const [mail] = useMail()
 
   return (
+    <div className="h-full w-full">
     <TooltipProvider delayDuration={0}>
       <ResizablePanelGroup
         direction="horizontal"
@@ -98,12 +99,13 @@ export function Mail({
           </Tabs>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={defaultLayout[2]}>
+        {/* <ResizablePanel defaultSize={defaultLayout[2]}>
           <MailDisplay
             mail={mails.find((item) => item.id === mail.selected) || null}
           />
-        </ResizablePanel>
+        </ResizablePanel> */}
       </ResizablePanelGroup>
     </TooltipProvider>
+    </div>
   )
 }

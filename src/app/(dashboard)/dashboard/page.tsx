@@ -9,11 +9,11 @@ export default function page() {
   const defaultCollapsed = collapsed ? JSON.parse(collapsed.value) : undefined;
 
   return (
-    <div className="hidden flex-col md:flex">
+    <div className="flex-col md:flex">
       <Mail
         mails={mails}
         defaultLayout = {[265, 440, 655]}
-        defaultCollapsed ={ false}
+        defaultCollapsed = { false }
       />
     </div>
   );
