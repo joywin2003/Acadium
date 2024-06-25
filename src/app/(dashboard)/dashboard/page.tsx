@@ -1,5 +1,5 @@
 import { Mail } from "~/components/mail";
-import { mails } from "~/components/data";
+import { mails } from "~/components/mail/data";
 import { cookies } from "next/headers";
 
 export default function page() {
@@ -12,8 +12,8 @@ export default function page() {
     <div className="flex-col md:flex">
       <Mail
         mails={mails}
-        defaultLayout = {[265, 440, 655]}
-        defaultCollapsed = { false }
+        defaultLayout={[265, 440, 655]}
+        defaultCollapsed={false}
       />
     </div>
   );
