@@ -136,3 +136,55 @@ export type Student = {
     branch: string;
     section: string;
   };
+
+export type Faculty = {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    branch: string;
+    subjects: string;
+  };
+
+export  const faculty: Faculty[] = [
+    {
+      id: '1',
+      name: 'Dr. John Smith',
+      email: 'john.smith@example.com',
+      phone: '123-456-7890',
+      branch: 'Computer Science',
+      subjects: 'Data Structures, Algorithms'
+    },
+    {
+      id: '2',
+      name: 'Prof. Alice Johnson',
+      email: 'alice.johnson@example.com',
+      phone: '234-567-8901',
+      branch: 'Electrical Engineering',
+      subjects: 'Circuit Theory, Control Systems'
+    },
+    {
+      id: '3',
+      name: 'Dr. Michael Lee',
+      email: 'michael.lee@example.com',
+      phone: '345-678-9012',
+      branch: 'Mechanical Engineering',
+      subjects: 'Thermodynamics, Fluid Mechanics'
+    },
+    {
+      id: '4',
+      name: 'Prof. Laura White',
+      email: 'laura.white@example.com',
+      phone: '456-789-0123',
+      branch: 'Civil Engineering',
+      subjects: 'Structural Analysis, Concrete Technology'
+    },
+    {
+      id: '5',
+      name: 'Dr. Robert Taylor',
+      email: 'robert.taylor@example.com',
+      phone: '567-890-1234',
+      branch: 'Computer Science',
+      subjects: 'Database Management, Software Engineering'
+    }
+  ];

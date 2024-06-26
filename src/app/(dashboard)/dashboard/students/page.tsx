@@ -1,6 +1,6 @@
 "use client";
 import { Breadcrumb as BreadCrumb } from "~/components/ui/breadcrumb";
-import { UserClient } from "~/components/tables/client";
+import { StudentTable } from "~/components/tables/student/student-table";
 // import { users } from '~/constants/data';
 const breadcrumbItems = [{ title: "User", link: "/dashboard/user" }];
 
@@ -35,7 +35,7 @@ export default function page() {
     <>
       <div className="flex-1 space-y-4  p-4 pt-6 md:p-8">
         {/* <BreadCrumb items={breadcrumbItems} /> */}
-        <UserClient data={users} role="Student" />
+        <StudentTable data={users}/>
       </div>
     </>
   );

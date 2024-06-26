@@ -3,25 +3,24 @@ import { Button } from "~/components/ui/button";
 import { DataTable } from "~/components/ui/data-table";
 import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
-import { Student } from "~/constants/data";
+import { Faculty } from "~/constants/data";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { columns } from "./columns";
 
-interface ProductsClientProps {
-  data: Student[];
-  role: string;
+interface FacultyTableProps {
+  data: Faculty[];
 }
 
-export const UserClient: React.FC<ProductsClientProps> = ({ data,role }) => {
+export const FacultyTable: React.FC<FacultyTableProps> = ({ data }) => {
   const router = useRouter();
 
   return (
     <>
       <div className="flex items-start justify-between">
         <Heading
-          title={`St. Joseph Engineering College - ${role} (${data.length})`}
-          description={`Manage ${role} records and functionalities on the client-side.`}
+          title={`St. Joseph Engineering College - faculty (${data.length})`}
+          description={`Manage faculty records and functionalities on the client-side.`}
         />
 
         <Button
