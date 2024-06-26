@@ -8,18 +8,19 @@ import { useMutation } from "@tanstack/react-query";
 import { getStudentList } from "~/app/api/user/actions";
 import { useEffect, useState } from "react";
 
-type User = {
-  id: number;
+type Student = {
+  id: string;
+  usn: string;
   name: string;
-  company: string;
-  role: string;
-  verified: boolean;
-  status: string;
+  email: string;
+  phone: string;
+  branch: string;
+  section: string;
 };
 
 export default function page() {
   // let users:User[];
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<Student[]>([]);
 
   useEffect(() => {
     const updateStudent = async () => {
