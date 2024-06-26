@@ -4,7 +4,7 @@ export const navItems: NavItem[] = [
     {
       title: 'Email',
       href: '/dashboard',
-      icon: 'dashboard',
+      icon: 'mail',
       label: 'News'
     },
     {
