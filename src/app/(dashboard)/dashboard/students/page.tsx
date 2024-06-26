@@ -1,22 +1,10 @@
-"use client";
-import { Breadcrumb as BreadCrumb } from "~/components/ui/breadcrumb";
+"use client";;
 import { StudentTable } from "~/components/tables/student/student-table";
-// import { users } from '~/constants/data';
-const breadcrumbItems = [{ title: "User", link: "/dashboard/user" }];
-
-import { useMutation } from "@tanstack/react-query";
-import { getStudentList } from "~/app/api/user/actions";
+import { Student } from "@prisma/client";
 import { useEffect, useState } from "react";
+import { getStudentList } from "~/app/api/user/actions";
 
-type Student = {
-  id: string;
-  usn: string;
-  name: string;
-  email: string;
-  phone: string;
-  branch: string;
-  section: string;
-};
+
 
 export default function page() {
   // let users:User[];
