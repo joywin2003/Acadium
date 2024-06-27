@@ -18,9 +18,9 @@ model User {
     password   String
     createdAt  DateTime     @default(now())
     updatedAt  DateTime     @updatedAt
-    Student    Student?
-    Faculty    Faculty?
-    Department Department?
+    // Student    Student?
+    // Faculty    Faculty?
+    // Department Department?
 }
 
 model Student {
@@ -32,8 +32,8 @@ model Student {
     branch     String
     section    String
     // Academics  Academics[]
-    User       User        @relation(fields: [id], references: [id])
-    Department Department  @relation(fields: [branch], references: [name])
+    // User       User        @relation(fields: [id], references: [id])
+    // Department Department  @relation(fields: [branch], references: [name])
     // Sections   Sections    @relation(fields: [section], references: [id])
 }
 
@@ -44,8 +44,8 @@ model Faculty {
     phone      String
     branch     String
     subjects   String
-    User       User        @relation(fields: [id], references: [id])
-    Department Department  @relation(fields: [branch], references: [name])
+    // User       User        @relation(fields: [id], references: [id])
+    // Department Department  @relation(fields: [branch], references: [name])
     // Academics  Academics[]
     // Subjects   Subjects[]
     // Sections   Sections[]
@@ -102,7 +102,7 @@ model Department {
     secratory_name String
     phone          String
     Circulars      Circulars[]
-    User           User        @relation(fields: [secratory_id], references: [id])
-    Student        Student[]
-    Faculty        Faculty[]
+    // User           User        @relation(fields: [secratory_id], references: [id])
+    // Student        Student[]
+    // Faculty        Faculty[]
 }
