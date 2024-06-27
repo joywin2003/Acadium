@@ -2,7 +2,7 @@
 import { StudentTable } from "~/components/tables/student/student-table";
 import { Student } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { getStudentList } from "~/app/api/user/actions";
+import { getStudentList } from "~/app/actions";
 
 
 

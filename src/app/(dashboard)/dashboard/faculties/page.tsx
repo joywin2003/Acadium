@@ -1,7 +1,7 @@
 "use client";
 import { Faculty } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { getFacultyList } from "~/app/api/user/actions";
+import { getFacultyList } from "~/app/actions";
 import { FacultyTable } from "~/components/tables/faculty/faculty-table";
 
 export default function page() {
