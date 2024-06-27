@@ -1,26 +1,33 @@
+"use client";
 import React from "react";
-import { db } from "~/server/db";
+import { useQuery } from "@tanstack/react-query"; 
+import { getUserProfile } from "~/app/actions"; 
+import { User } from "~/types"; 
 
-interface User {
-  id: string;
-  usn: string;
-  email: string;
-  name: string;
-  branch: string;
-  
+interface ProfileProps {
+  params: { id: string };
 }
 
-const profile = async ({ params }: { params: { id: string } }) => {
-  const user: User | null = await db.student.findUnique({
-    where: { id: "clxwyjxji0000784i4whd95dr" },
+const Profile: React.FC<ProfileProps> = ({ params }) => {
+  const { data, error, isLoading } = useQuery<User | null, Error>({
+    queryKey: ["user"],
+    queryFn: async () => await getUserProfile(),
   });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading user profile</div>;
+  if (!data) return <div>No user profile found</div>; 
+
   return (
     <div>
-      <h2>{user!.email}</h2>
-      <h2>{user!.id}</h2>
-      hii
+      <h2>{data.email}</h2>
+      <h2>{data.id}</h2>
+      <h2>{data.name}</h2>
+      <h2>{data.usn}</h2>
+      <h2>{data.branch}</h2>
+      <p>hii</p>
     </div>
   );
 };
 
-export default profile;
+export default Profile;
