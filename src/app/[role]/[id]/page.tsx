@@ -16,7 +16,7 @@ const Profile: React.FC<ProfileProps> = ({ params }) => {
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading user profile</div>;
-  if (!data) return <div>No user profile found</div>; 
+  if (!data) return <div>No user profile found</div>;   
 
   return (
     <div>
