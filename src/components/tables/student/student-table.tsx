@@ -19,7 +19,7 @@ export const StudentTable: React.FC<StudentTableProps> = ({ data }) => {
     <>
       <div className="flex items-start justify-between">
         <Heading
-          title={`St. Joseph Engineering College - student (${data.length})`}
+          title={`St. Joseph Engineering College - Student (${data.length})`}
           description={`Manage student records and functionalities on the client-side.`}
         />
 
