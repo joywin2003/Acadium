@@ -1,9 +1,10 @@
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import page from "~/app/admin/page";
 // import bcrypt from "bcryptjs";
 import { db } from "~/server/db";
 
-export const authOptions = {
+export const authOptions:NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -45,7 +46,7 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user }: { token: any, user: any }) {
       if (user) {
-        token.id = user.id;
+        token.id = user.id?.toString();
         token.role = user.role;
         token.email = user.email;
         token.name = user.name;
@@ -54,7 +55,7 @@ export const authOptions = {
     },
     async session({ session, token }: { session: any, token: any }) {
       if (token) {
-        session.user.id = token.id;
+        session.user.id = token.id?.toString();
         session.user.role = token.role;
         session.user.email = token.email;
         session.user.name = token.name;
