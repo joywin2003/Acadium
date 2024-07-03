@@ -42,7 +42,26 @@ export const authOptions = {
       },
     }),
   ],
-  callbacks: {},
+  callbacks: {
+    async jwt({ token, user }: { token: any, user: any }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+        token.email = user.email;
+        token.name = user.name;
+      }
+      return token;
+    },
+    async session({ session, token }: { session: any, token: any }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.role = token.role;
+        session.user.email = token.email;
+        session.user.name = token.name;
+      }
+      return session;
+    },
+  },
   pages: {
     signIn: "/login",
   },
