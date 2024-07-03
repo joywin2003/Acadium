@@ -27,7 +27,7 @@ model Student {
     id         String      @id @default(cuid())
     usn        String      @unique
     name       String
-    email      String
+    email      String       @unique
     phone      String
     branch     String
     section    String
