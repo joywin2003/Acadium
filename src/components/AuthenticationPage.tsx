@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import Acadium from "~/components/acadium.json";
-import Login from "../app/login/page";
+import Login from "../app/_login/page";
 import { Lottie } from "./common/lottie";
 import Header from "./layout/header";
 import ThemeToggle from "./layout/ThemeToggle/theme-toggle";

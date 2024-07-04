@@ -60,25 +60,13 @@ const LoginForm = (role: { role: string }) => {
       password: data.password,
     });
 
-    if (!result?.ok) {
-      console.log("error");
-      return;
+    console.log(result);
+    if (result?.ok) {
+      console.log("ok");
+      router.push("/dashboard");
     }else if(result?.error){
       console.log("error");
-      return;
     }
-
-    const { email, password, role } = data;
-    if (role === "student") {
-      console.log("student login");
-    }
-    if (role === "faculty") {
-      console.log("faculty login");
-    }
-    if (role === "admin") {
-      console.log("admin login");
-    }
-    router.push("/");
   };
   return (
     <div>
