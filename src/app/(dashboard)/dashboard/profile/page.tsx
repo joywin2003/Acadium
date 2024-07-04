@@ -14,15 +14,20 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { getToken } from "next-auth/jwt";
+import { useSession } from "next-auth/react";
+import { Student } from "~/constants/data";
 
 interface ProfileProps {
   params: { id: string };
 }
 
 const Profile: React.FC<ProfileProps> = ({ params }) => {
+  const { data: session } = useSession();
+  const email = session?.user.email;
   const { data, error, isLoading } = useQuery<User | null, Error>({
     queryKey: ["user"],
-    queryFn: async () => await getUserProfile(),
+    queryFn: async () => await getUserProfile(email),
   });
 
   if (isLoading) return <div>Loading...</div>;
@@ -41,23 +46,23 @@ const Profile: React.FC<ProfileProps> = ({ params }) => {
             <div className="grid w-full items-center gap-4 text-6xl">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" value={data.name} readOnly />
+                <Input id="name" value={data?.name} readOnly />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" value={data.email} readOnly />
+                <Input id="email" value={data?.email} readOnly />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="id">ID</Label>
-                <Input id="id" value={data.id} readOnly />
+                <Input id="id" value={data?.id} readOnly />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="usn">USN</Label>
-                <Input id="usn" value={data.usn} readOnly />
+                <Input id="usn" value={data?.usn} readOnly />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="branch">Branch</Label>
-                <Input id="branch" value={data.branch} readOnly />
+                <Input id="branch" value={data?.branch} readOnly />
               </div>
             </div>
           </form>

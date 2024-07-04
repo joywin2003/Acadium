@@ -36,6 +36,7 @@ export interface User {
   id: string;
   usn: string;
   email: string;
+  role: string;
   name: string;
   branch: string;
 }
