@@ -15,6 +15,7 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { useRouter } from "next/navigation";
+import { signIn } from 'next-auth/react';
 
 export default function Login() {
   return (
@@ -51,8 +52,21 @@ const LoginForm = (role: { role: string }) => {
     },
   });
   const router = useRouter();
-  const onLogin = (data: TLoginSchema) => {
+  const onLogin = async (data: TLoginSchema) => {
     console.log(data);
+    const result = await signIn('credentials', {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+
+    if (!result?.ok) {
+      console.log("error");
+      return;
+    }else if(result?.error){
+      console.log("error");
+      return;
+    }
 
     const { email, password, role } = data;
     if (role === "student") {

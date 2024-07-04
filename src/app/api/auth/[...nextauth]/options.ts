@@ -19,8 +19,11 @@ export const authOptions:NextAuthOptions = {
         },
       },
       async authorize(credentials): Promise<any> {
+        console.log(credentials);
         if (!credentials?.email || !credentials?.password) {
+            console.log("invalid credentials");
           throw new Error("Invalid credentials");
+          
         }
         try {
           const user = await db.user.findUnique({
@@ -30,14 +33,17 @@ export const authOptions:NextAuthOptions = {
           });
 
           if (!user || !user.password) {
+            console.log("user not found");
             throw new Error("user not found");
           }
 
           if (user.password !== credentials.password) {
+            console.log("Incorrect Passowrd");
             throw new Error("Incorrect Passowrd");
           }
           return user;
         } catch (err) {
+          console.log(err);
           throw new Error("Invalid credentials");
         }
       },
