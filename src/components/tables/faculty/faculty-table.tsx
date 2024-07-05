@@ -13,10 +13,6 @@ import { getFacultyList } from "~/app/actions";
 
 
 
-interface FacultyTableProps {
-  data: Faculty[];
-}
-
 export const FacultyTable: React.FC = () => {
   const router = useRouter();
   const { data, error, isLoading } = useQuery<Faculty[] | null, Error>({
@@ -35,10 +31,10 @@ export const FacultyTable: React.FC = () => {
         />
 
         <Button
-          className="text-xs md:text-sm"
+          className="text-xs md:text-sm mt-4 md:mt-0"
           onClick={() => router.push(`/dashboard/user/new`)}
         >
-          <Plus className="mr-2 h-4 w-4" /> Add New
+          <Plus className="mr-2 h-4 w-4 " /> Add New
         </Button>
       </div>
       <Separator />

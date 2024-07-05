@@ -10,11 +10,7 @@ import { columns } from "./columns";
 import { useQuery } from "@tanstack/react-query";
 import { getStudentList } from "~/app/actions";
 
-interface StudentTableProps {
-  data: Student[];
-}
-
-export const StudentTable: React.FC<StudentTableProps> = () => {
+export const StudentTable: React.FC = () => {
   const router = useRouter();
   const { data, error, isLoading } = useQuery<Student[] | null, Error>({
     queryKey: ["student"],
@@ -24,13 +20,13 @@ export const StudentTable: React.FC<StudentTableProps> = () => {
   return (
     <>
       <div className="flex items-start justify-between">
-        <Heading
+        <Heading className="text-7xl "
           title={`St. Joseph Engineering College - Student (${data?.length || 0})`}
           description={`Manage student records and functionalities on the client-side.`}
         />
 
         <Button
-          className="text-xs md:text-sm"
+          className="text-xs md:text-sm mt-4 md:mt-0"
           onClick={() => router.push(`/dashboard/user/new`)}
         >
           <Plus className="mr-2 h-4 w-4" /> Add New
