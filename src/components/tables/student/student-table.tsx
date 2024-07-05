@@ -17,7 +17,7 @@ interface StudentTableProps {
 export const StudentTable: React.FC<StudentTableProps> = () => {
   const router = useRouter();
   const { data, error, isLoading } = useQuery<Student[] | null, Error>({
-    queryKey: ["user"],
+    queryKey: ["student"],
     queryFn: async () => await getStudentList(),
   });
 

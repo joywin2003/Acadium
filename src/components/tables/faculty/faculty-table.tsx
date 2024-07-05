@@ -20,7 +20,7 @@ interface FacultyTableProps {
 export const FacultyTable: React.FC = () => {
   const router = useRouter();
   const { data, error, isLoading } = useQuery<Faculty[] | null, Error>({
-    queryKey: ["user"],
+    queryKey: ["faculty"],
     queryFn: async () => await getFacultyList(),
   });
 

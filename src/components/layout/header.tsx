@@ -5,6 +5,7 @@ import { MobileSidebar } from './mobile-sidebar';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { signOut } from "next-auth/react"
+import { toast } from 'sonner';
 
 export default function Header() {
   return (
@@ -36,7 +37,7 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button onClick={() => signOut()}>Logout</Button>
+          <Button onClick={() => {toast.message("Logged out"); signOut()}}>Logout</Button>
           <ThemeToggle />
         </div>
       </nav>
