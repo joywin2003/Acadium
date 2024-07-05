@@ -19,7 +19,7 @@ import {
 import { Input } from './input';
 import { Button } from './button';
 import { ScrollArea, ScrollBar } from './scroll-area';
-import { Suspense } from 'react';
+import { Skeleton } from './skeleton';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -52,8 +52,6 @@ export function DataTable<TData, TValue>({
         }
         className="w-full md:max-w-sm"
       />
-
-      <Suspense fallback={<div>Loading...</div>}>
       <ScrollArea className="h-[calc(80vh-220px)] rounded-md border">
         <Table className="relative">
           <TableHeader>
@@ -65,9 +63,9 @@ export function DataTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
@@ -97,7 +95,12 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  <div className="flex items-center space-x-4">
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-[120vh] " />
+                      <Skeleton className="h-4 w-[120vh] "/>
+                    </div>
+                  </div>
                 </TableCell>
               </TableRow>
             )}
@@ -105,7 +108,6 @@ export function DataTable<TData, TValue>({
         </Table>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-      </Suspense>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{' '}

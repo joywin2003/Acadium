@@ -7,19 +7,25 @@ import { Student } from "~/constants/data";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { columns } from "./columns";
+import { useQuery } from "@tanstack/react-query";
+import { getStudentList } from "~/app/actions";
 
 interface StudentTableProps {
   data: Student[];
 }
 
-export const StudentTable: React.FC<StudentTableProps> = ({ data }) => {
+export const StudentTable: React.FC<StudentTableProps> = () => {
   const router = useRouter();
+  const { data, error, isLoading } = useQuery<Student[] | null, Error>({
+    queryKey: ["user"],
+    queryFn: async () => await getStudentList(),
+  });
 
   return (
     <>
       <div className="flex items-start justify-between">
         <Heading
-          title={`St. Joseph Engineering College - Student (${data.length})`}
+          title={`St. Joseph Engineering College - Student (${data?.length || 0})`}
           description={`Manage student records and functionalities on the client-side.`}
         />
 
@@ -31,7 +37,7 @@ export const StudentTable: React.FC<StudentTableProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey="name" columns={columns} data={data} />
+      <DataTable searchKey="name" columns={columns} data={data || []} />
     </>
   );
 };

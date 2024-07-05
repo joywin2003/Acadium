@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "~/components/ui/button";
-// import  DataTable  from "~/components/ui/data-table";
+import { DataTable } from "~/components/ui/data-table";
 import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
 import { Faculty } from "~/constants/data";
@@ -12,9 +12,6 @@ import { Suspense, lazy } from "react";
 import { getFacultyList } from "~/app/actions";
 
 
-const DataTable = lazy(() => 
-  import('~/components/ui/data-table').then(module => ({ default: module.DataTable }))
-);
 
 interface FacultyTableProps {
   data: Faculty[];
@@ -45,9 +42,7 @@ export const FacultyTable: React.FC = () => {
         </Button>
       </div>
       <Separator />
-      <Suspense fallback={<div>Loading data...</div>}>
-      <DataTable searchKey="name" columns={columns} data={data} />
-      </Suspense>
+      <DataTable searchKey="name" columns={columns} data={data ?? []} />
     </>
   );
 };
