@@ -16,6 +16,7 @@ import { Input } from "~/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import { signIn } from 'next-auth/react';
+import { toast } from "sonner";
 
 export default function Login() {
   return (
@@ -54,19 +55,36 @@ const LoginForm = (role: { role: string }) => {
   const router = useRouter();
   const onLogin = async (data: TLoginSchema) => {
     console.log(data);
-    const result = await signIn('credentials', {
-      redirect: false,
-      email: data.email,
-      password: data.password,
-    });
 
-    console.log(result);
-    if (result?.ok) {
-      console.log("ok");
-      router.push("/dashboard");
-    }else if(result?.error){
-      console.log("error");
+
+    try {
+      const myPromise = signIn('credentials', {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+
+      toast.promise(myPromise, {
+        loading: 'Loading...',
+        success: (result) => {
+          if (result?.ok) {
+            setTimeout(() => {
+              router.push("/dashboard");
+            }, 2000);
+
+            return "Login successful";
+          } else {
+            toast.error(result?.error);
+          }
+        },
+        error: 'Error',
+      });
+
+    } catch (error) {
+      toast.error("Error logging in");
     }
+
+
   };
   return (
     <div>

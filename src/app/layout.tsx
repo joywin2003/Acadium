@@ -3,6 +3,7 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 
 import Providers from "~/components/layout/providers";
+import { Toaster } from 'sonner';
 
 export const metadata = {
   title: "Acadium",
@@ -22,7 +23,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <Providers>{children}</Providers>
+        <Providers>{children}<Toaster /></Providers>
       </body>
     </html>
   );
