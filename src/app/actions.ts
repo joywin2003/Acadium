@@ -1,7 +1,7 @@
 "use server";
 
 
-import { faculty } from "~/constants/data";
+import { Faculty, faculty } from "~/constants/data";
 import { db } from "~/server/db";
 import { User } from "~/types";
 
@@ -11,7 +11,7 @@ export const getStudentList = async () => {
 };
 
 export const getFacultyList = async () => {
-  const faculty = await db.faculty.findMany();
+  const faculty: Faculty[] = await db.faculty.findMany();
   return faculty;
 };
 
