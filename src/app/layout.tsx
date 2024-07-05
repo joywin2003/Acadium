@@ -23,7 +23,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <Providers>{children}<Toaster /></Providers>
+        <Providers>{children}<Toaster toastOptions={{
+          classNames: {
+            error: 'text-red-400 border-red-400',
+            success: 'text-green-400 border-green-400',
+            warning: 'text-yellow-400 border-yellow-400',
+            info: 'text-blue-400 border-blue-400',
+          },
+        }} /></Providers>
       </body>
     </html>
   );
