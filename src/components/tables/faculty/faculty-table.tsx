@@ -26,7 +26,7 @@ export const FacultyTable: React.FC = () => {
     <>
       <div className="flex items-start justify-between">
         <Heading
-          title={`St. Joseph Engineering College - Faculty (${data?.length || 0})`}
+          title={`St. Joseph Engineering College - Faculty (${data ? data.length : 'Loading...'})`}
           description={`Manage faculty records and functionalities on the client-side.`}
         />
 
