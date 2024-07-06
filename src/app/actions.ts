@@ -4,7 +4,7 @@
 import { Faculty, Student} from "~/types";
 import { db } from "~/server/db";
 import { User } from "~/types";
-import { TFacultyFormSchema, TStudentFormSchema, facultyFormSchema } from "~/server/api/schema/zod-schema";
+import { TFacultyFormSchema, TStudentFormSchema, facultyFormSchema, studentFormSchema } from "~/server/api/schema/zod-schema";
 
 export const getStudentList = async () => {
   const students: Student[] = await db.student.findMany();
@@ -34,6 +34,25 @@ export const getUserProfile = async (email: string) => {
 }
 
 export const createStudent = async (student: TStudentFormSchema) => {
+  const validationResult = studentFormSchema.safeParse(student);
+
+  if (!validationResult.success) {
+    throw new Error("Validation error: " + validationResult.error.errors.map(e => e.message).join(", "));
+  }
+
+  const existingUser = await db.student.findMany({
+      where: {
+          OR:[
+              {email: student.email},
+              {phone: student.phone}
+          ]
+      }
+  });
+
+  if (existingUser.length > 0) {
+    throw new Error("A student with this email or phone number already exists");
+  }
+
   const newStudent = await db.student.create({
     data: student,
   });
