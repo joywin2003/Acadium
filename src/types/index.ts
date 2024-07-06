@@ -40,3 +40,22 @@ export interface User {
   name: string;
   branch: string;
 }
+
+export type Student = {
+  id: string;
+  usn: string;
+  name: string;
+  email: string;
+  phone: string;
+  branch: string;
+  section: string;
+};
+
+export type Faculty = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  branch: string;
+  subjects: string;
+};
