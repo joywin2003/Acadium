@@ -22,7 +22,7 @@ export default function RootLayout({
       className={`${GeistSans.variable}`}
       suppressHydrationWarning
     >
-      <body>
+      <body suppressHydrationWarning={true}>
         <Providers>{children}<Toaster position="top-center" toastOptions={{
           classNames: {
             error: 'text-red-400 border-red-400',

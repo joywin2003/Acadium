@@ -53,7 +53,6 @@ export default function StudentForm() {
             <Separator />
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-
                     <div className="gap-8 md:grid md:grid-cols-3">
                         <FormField
                             control={form.control}
