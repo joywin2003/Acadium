@@ -16,8 +16,13 @@ export const getStudentList = async () => {
 };
 
 export const getFacultyList = async () => {
-  const faculty: Faculty[] = await db.faculty.findMany();
-  return faculty;
+  try {
+    const faculty: Faculty[] = await db.faculty.findMany();
+    return faculty;
+  } catch (error) {
+    throw error;
+  }
+  
 };
 
 export const getUserProfile = async (email: string) => {
