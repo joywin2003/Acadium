@@ -1,17 +1,15 @@
 "use client";
+import { useQuery } from "@tanstack/react-query";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { getFacultyList } from "~/app/actions";
+import { AlertMessage } from "~/components/common/alertMessage";
 import { Button } from "~/components/ui/button";
 import { DataTable } from "~/components/ui/data-table";
 import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
 import { Faculty } from "~/types";
-import { Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { columns } from "./columns";
-import { useQuery } from "@tanstack/react-query";
-import { getFacultyList } from "~/app/actions";
-import { AlertMessage } from "~/components/common/alertMessage";
-
-
 
 export const FacultyTable: React.FC = () => {
   const router = useRouter();
@@ -26,12 +24,12 @@ export const FacultyTable: React.FC = () => {
     <>
       <div className="flex items-start justify-between">
         <Heading
-          title={`St. Joseph Engineering College - Faculty (${data ? data.length : 'Loading...'})`}
+          title={`St. Joseph Engineering College - Faculty (${data ? data.length : "Loading..."})`}
           description={`Manage faculty records and functionalities on the client-side.`}
         />
 
         <Button
-          className="text-xs md:text-sm mt-4 md:mt-0"
+          className="mt-4 text-xs md:mt-0 md:text-sm"
           onClick={() => router.push(`/dashboard/faculty/new`)}
         >
           <Plus className="mr-2 h-4 w-4 " /> Add New

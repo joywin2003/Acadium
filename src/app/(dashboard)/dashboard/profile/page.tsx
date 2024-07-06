@@ -1,8 +1,8 @@
-"use client";
-import React from "react";
+"use client";;
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
+import React from "react";
 import { getUserProfile } from "~/app/actions";
-import { User } from "~/types";
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -14,9 +14,7 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { getToken } from "next-auth/jwt";
-import { useSession } from "next-auth/react";
-import { Student } from "~/constants/data";
+import { User } from "~/types";
 
 interface ProfileProps {
   params: { id: string };

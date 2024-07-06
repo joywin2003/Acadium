@@ -1,6 +1,6 @@
+import { cookies } from "next/headers";
 import { Mail } from "~/components/mail";
 import { mails } from "~/components/mail/data";
-import { cookies } from "next/headers";
 
 export default function page() {
   const layout = cookies().get("react-resizable-panels:layout");
@@ -12,7 +12,7 @@ export default function page() {
     <div className="flex-col md:flex">
       <Mail
         mails={mails}
-        defaultLayout={[265, 440, 655]}
+        defaultLayout={defaultLayout}
         defaultCollapsed={false}
       />
     </div>

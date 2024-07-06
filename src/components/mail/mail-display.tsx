@@ -13,15 +13,14 @@ import {
   Trash2,
 } from "lucide-react";
 
-import {
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "~/components/ui/dropdown-menu";
+import { Mail } from "~/components/mail/data";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";
 import {
   DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Label } from "~/components/ui/label";
@@ -36,7 +35,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { Mail } from "~/components/mail/data";
 import { cn } from "~/lib/utils";
 
 interface MailDisplayProps {

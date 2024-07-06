@@ -1,5 +1,11 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { Button } from "~/components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,15 +14,9 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { TLoginSchema, loginSchema } from "~/server/api/schema/zod-schema";
-import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { useRouter } from "next/navigation";
-import { signIn } from 'next-auth/react';
-import { toast } from "sonner";
+import { TLoginSchema, loginSchema } from "~/server/api/schema/zod-schema";
 
 export default function Login() {
   return (
@@ -56,16 +56,15 @@ const LoginForm = (role: { role: string }) => {
   const onLogin = async (data: TLoginSchema) => {
     console.log(data);
 
-
     try {
-      const myPromise = signIn('credentials', {
+      const myPromise = signIn("credentials", {
         redirect: false,
         email: data.email,
         password: data.password,
       });
 
       toast.promise(myPromise, {
-        loading: 'Loading...',
+        loading: "Loading...",
         success: (result) => {
           if (result?.ok) {
             setTimeout(() => {
@@ -77,14 +76,11 @@ const LoginForm = (role: { role: string }) => {
             toast.error(result?.error);
           }
         },
-        error: 'Error',
+        error: "Error",
       });
-
     } catch (error) {
       toast.error("Error logging in");
     }
-
-
   };
   return (
     <div>

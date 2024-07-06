@@ -1,15 +1,15 @@
 "use client";
+import { useQuery } from "@tanstack/react-query";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { getStudentList } from "~/app/actions";
+import { AlertMessage } from "~/components/common/alertMessage";
 import { Button } from "~/components/ui/button";
 import { DataTable } from "~/components/ui/data-table";
 import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
 import { Student } from "~/types";
-import { Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { columns } from "./columns";
-import { useQuery } from "@tanstack/react-query";
-import { getStudentList } from "~/app/actions";
-import { AlertMessage } from "~/components/common/alertMessage";
 
 export const StudentTable: React.FC = () => {
   const router = useRouter();

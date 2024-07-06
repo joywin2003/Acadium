@@ -1,7 +1,9 @@
 "use client";
-import * as React from "react";
 import { PenIcon, Search } from "lucide-react";
+import * as React from "react";
 
+import { type Mail } from "~/components/mail/data";
+import { MailList } from "~/components/mail/mail-list";
 import { Input } from "~/components/ui/input";
 import {
   ResizableHandle,
@@ -11,11 +13,9 @@ import {
 import { Separator } from "~/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { TooltipProvider } from "~/components/ui/tooltip";
-import { MailList } from "~/components/mail/mail-list";
-import { type Mail } from "~/components/mail/data";
 import { useMail } from "~/hooks/use-mail";
-import { MailDisplay } from "./mail-display";
 import { Button } from "../ui/button";
+import { MailDisplay } from "./mail-display";
 
 interface MailProps {
   mails: Mail[];

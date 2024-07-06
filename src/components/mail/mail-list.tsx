@@ -1,11 +1,11 @@
-import { ComponentProps } from "react";
 import { formatDistanceToNow } from "date-fns";
+import { ComponentProps } from "react";
 
-import { cn } from "~/lib/utils";
+import { Mail } from "~/components/mail/data";
 import { Badge } from "~/components/ui/badge";
 import { ScrollArea } from "~/components/ui/scroll-area";
-import { Mail } from "~/components/mail/data";
 import { useMail } from "~/hooks/use-mail";
+import { cn } from "~/lib/utils";
 
 interface MailListProps {
   items: Mail[];

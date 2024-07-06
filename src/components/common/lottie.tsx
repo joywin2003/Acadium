@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
 import { DotLottiePlayer } from "@dotlottie/react-player";
 import "@dotlottie/react-player/dist/index.css";
+import React from "react";
 import { cn } from "~/lib/utils";
 
 export const Lottie = ({
@@ -19,7 +19,7 @@ export const Lottie = ({
   return (
     <DotLottiePlayer
       style={{ width, height }}
-      className={cn("flex justify-center items-center h-screen", className)}
+      className={cn("flex h-screen items-center justify-center", className)}
       autoplay
       loop
       src={src}

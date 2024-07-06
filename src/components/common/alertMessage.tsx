@@ -1,16 +1,16 @@
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "~/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 
-export function AlertMessage({title,message}:{title:string,message:string}) {
+export function AlertMessage({
+  title,
+  message,
+}: {
+  title: string;
+  message: string;
+}) {
   return (
     <Alert>
-      <AlertTitle className="font-bold text-xl">{title}</AlertTitle>
-      <AlertDescription>
-        {message}
-      </AlertDescription>
+      <AlertTitle className="text-xl font-bold">{title}</AlertTitle>
+      <AlertDescription>{message}</AlertDescription>
     </Alert>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { StudentTable } from "~/components/tables/student/student-table";
 
 export default function page() {
