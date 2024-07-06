@@ -40,7 +40,7 @@ export function Mail({
             <PenIcon className="h-4 w-4 md:h-5 md:w-5" />
             <span>Compose</span>
           </Button>
-          <div className="flex flex-col w-[465px] min-w-[200px]">
+          <div className="flex flex-col w-full xl:w-2/5 min-w-[200px]">
             <div className="flex flex-col h-full">
               <Tabs defaultValue="all" className="flex-1">
                 <div className="flex items-center px-4 py-2">
