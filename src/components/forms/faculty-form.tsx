@@ -1,6 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -28,8 +28,6 @@ import {
 } from '~/components/ui/select';
 import { Separator } from '~/components/ui/separator';
 import { facultyFormSchema, type TFacultyFormSchema } from '~/server/api/schema/zod-schema';
-// import FileUpload from '../file-upload';
-// import { useToast } from '../ui/use-toast';
 
 
 const defaultValues: TFacultyFormSchema = {
@@ -42,6 +40,7 @@ const defaultValues: TFacultyFormSchema = {
 
 
 export function FacultyForm() {
+    const queryClient = useQueryClient();
 
     const form = useForm<TFacultyFormSchema>({
         resolver: zodResolver(facultyFormSchema),
@@ -55,7 +54,8 @@ export function FacultyForm() {
         },
         onSuccess: () => {
             toast.success('Faculty added successfully');
-            //   form.reset();
+            queryClient.invalidateQueries({ queryKey: ['faculty'] });
+            form.reset();
         },
         onError: (error) => {
             toast.error(error.message);

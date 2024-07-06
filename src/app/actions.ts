@@ -4,6 +4,7 @@
 import { Faculty, Student} from "~/types";
 import { db } from "~/server/db";
 import { User } from "~/types";
+import { TFacultyFormSchema, TStudentFormSchema } from "~/server/api/schema/zod-schema";
 
 export const getStudentList = async () => {
   const students: Student[] = await db.student.findMany();
@@ -32,14 +33,16 @@ export const getUserProfile = async (email: string) => {
   return userTemp;
 }
 
-export const createStudent = async (student: Student) => {
+export const createStudent = async (student: TStudentFormSchema) => {
   const newStudent = await db.student.create({
     data: student,
   });
   return newStudent;
 };
 
-export const createFaculty = async (faculty:unknown) => {
-  console.log(faculty);
-  return faculty;
+export const createFaculty = async (faculty: TFacultyFormSchema) => {
+  const newFaculty = await db.faculty.create({
+    data: faculty,
+  });
+  return newFaculty;
 };
