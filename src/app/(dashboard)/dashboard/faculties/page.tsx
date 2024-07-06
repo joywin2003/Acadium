@@ -1,5 +1,5 @@
 "use client";
-import { Faculty } from "@prisma/client";
+import { Faculty } from "~/types";
 import { useQuery } from "@tanstack/react-query";
 import { getFacultyList } from "~/app/actions";
 import { FacultyTable } from "~/components/tables/faculty/faculty-table";
@@ -8,9 +8,9 @@ export default function page() {
 
   const { data, error, isLoading } = useQuery<Faculty[] | null, Error>({
     queryKey: ["user"],
-    queryFn: async () =>  await getFacultyList(),
+    queryFn: async () => await getFacultyList(),
   });
-  console.log("1",data);
+  console.log("1", data);
 
 
 

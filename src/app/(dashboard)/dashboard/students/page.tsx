@@ -1,6 +1,6 @@
 "use client";;
 import { StudentTable } from "~/components/tables/student/student-table";
-import { Student } from "@prisma/client";
+import { Student } from "~/types";
 import { useEffect, useState } from "react";
 import { getStudentList } from "~/app/actions";
 
@@ -23,7 +23,7 @@ export default function page() {
     <>
       <div className="flex-1 space-y-4  p-4 pt-6 md:p-8">
         {/* <BreadCrumb items={breadcrumbItems} /> */}
-        <StudentTable data={users}/>
+        <StudentTable/>
       </div>
     </>
   );
