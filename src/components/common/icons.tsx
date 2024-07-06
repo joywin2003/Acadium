@@ -29,6 +29,9 @@ import {
     User2Icon,
     UserX2Icon,
     X,
+    UserCheck,
+    GraduationCap,
+    CircleUserRound,
     Mail
   } from 'lucide-react';
   
@@ -39,7 +42,9 @@ import {
     logo: Command,
     login: LogIn,
     close: X,
-    profile: User2Icon,
+    profile: CircleUserRound,
+    faculty:UserCheck,
+    student:GraduationCap,
     spinner: Loader2,
     kanban: CircuitBoardIcon,
     chevronLeft: ChevronLeft,

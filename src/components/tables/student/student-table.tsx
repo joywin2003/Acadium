@@ -3,12 +3,13 @@ import { Button } from "~/components/ui/button";
 import { DataTable } from "~/components/ui/data-table";
 import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
-import { Student } from "~/constants/data";
+import { Student } from "~/types";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { columns } from "./columns";
 import { useQuery } from "@tanstack/react-query";
 import { getStudentList } from "~/app/actions";
+import { AlertMessage } from "~/components/common/alertMessage";
 
 export const StudentTable: React.FC = () => {
   const router = useRouter();
@@ -20,20 +21,28 @@ export const StudentTable: React.FC = () => {
   return (
     <>
       <div className="flex items-start justify-between">
-        <Heading className="text-7xl "
-          title={`St. Joseph Engineering College - Student (${data?.length || 'Loading...'})`}
+        <Heading
+          className="text-7xl "
+          title={`St. Joseph Engineering College - Student (${data?.length || "Loading..."})`}
           description={`Manage student records and functionalities on the client-side.`}
         />
 
         <Button
-          className="text-xs md:text-sm mt-4 md:mt-0"
-          onClick={() => router.push(`/dashboard/user/new`)}
+          className="mt-4 text-xs md:mt-0 md:text-sm"
+          onClick={() => router.push(`/dashboard/student/new`)}
         >
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey="name" columns={columns} data={data || []} />
+      {error ? (
+        <AlertMessage
+          title="Error Fetching Data"
+          message={`Oops! We couldn't fetch the requested data right now. Please try again later.`}
+        />
+      ) : (
+        <DataTable searchKey="name" columns={columns} data={data || []} />
+      )}
     </>
   );
 };

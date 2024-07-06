@@ -3,13 +3,13 @@ import { Button } from "~/components/ui/button";
 import { DataTable } from "~/components/ui/data-table";
 import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
-import { Faculty } from "~/constants/data";
+import { Faculty } from "~/types";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { columns } from "./columns";
 import { useQuery } from "@tanstack/react-query";
-import { Suspense, lazy } from "react";
 import { getFacultyList } from "~/app/actions";
+import { AlertMessage } from "~/components/common/alertMessage";
 
 
 
@@ -32,13 +32,20 @@ export const FacultyTable: React.FC = () => {
 
         <Button
           className="text-xs md:text-sm mt-4 md:mt-0"
-          onClick={() => router.push(`/dashboard/user/new`)}
+          onClick={() => router.push(`/dashboard/faculty/new`)}
         >
           <Plus className="mr-2 h-4 w-4 " /> Add New
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey="name" columns={columns} data={data ?? []} />
+      {error ? (
+        <AlertMessage
+          title="Error Fetching Data"
+          message={`Oops! We couldn't fetch the requested data right now. Please try again later.`}
+        />
+      ) : (
+        <DataTable searchKey="name" columns={columns} data={data || []} />
+      )}
     </>
   );
 };
