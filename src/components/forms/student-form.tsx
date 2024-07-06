@@ -46,7 +46,10 @@ export default function StudentForm() {
 
     return (
         <>
-            <Heading title="Add New Student" description='' />
+            <Heading
+                title="Add New Student"
+                description="Please fill in the details below to add a new student to the acadium."
+            />
             <Separator />
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>

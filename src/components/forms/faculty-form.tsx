@@ -52,7 +52,8 @@ export function FacultyForm() {
 
     return (
         <>
-            <Heading title="Add New Faculty" description='' />
+            <Heading title="Add New Faculty" description="Please fill in the details below to add a new faculty to the acadium."
+            />
             <Separator />
             <Form {...form}>
                 <form
@@ -138,8 +139,8 @@ export function FacultyForm() {
                             )}
                         />
                     </div>
-                    <div className="flex items-center justify-end gap-2 p-8">
-                        <Button type="submit">Submit</Button>
+                    <div className="flex items-center justify-center md:justify-end gap-2 p-8">
+                        <Button type="submit" className='w-full md:w-24 text-md'>Submit</Button>
                     </div>
                 </form>
             </Form>
