@@ -1,11 +1,13 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
+import { createFaculty, createStudent } from '~/app/actions';
 import { Button } from '~/components/ui/button';
 import {
     Form,
@@ -35,7 +37,7 @@ const defaultValues: TFacultyFormSchema = {
     email: '',
     phone: '',
     branch: 'CSE',
-    subjects: [''],
+    subjects: '',
 };
 
 
@@ -46,9 +48,20 @@ export function FacultyForm() {
         defaultValues
     });
 
-    const onSubmit = async (data: TFacultyFormSchema) => {
-        // console.log(data);
-    }
+
+    const mutation = useMutation({
+        mutationFn: async (data: TFacultyFormSchema) => {
+            return await createFaculty(data);
+        },
+        onSuccess: () => {
+            toast.success('Faculty added successfully');
+            //   form.reset();
+        },
+        onError: (error) => {
+            toast.error(error.message);
+        }
+    })
+
 
     return (
         <>
@@ -57,7 +70,7 @@ export function FacultyForm() {
             <Separator />
             <Form {...form}>
                 <form
-                    onSubmit={form.handleSubmit(onSubmit)}
+                    onSubmit={form.handleSubmit(() => mutation.mutate(form.getValues()))}
                     className="w-full space-y-8"
                 >
                     <div className="gap-8 md:grid md:grid-cols-3">

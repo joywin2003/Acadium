@@ -14,7 +14,7 @@ export const facultyFormSchema = z.object({
     email: z.string().email("Invalid email").regex(/^[^\s@]+@sjec\.ac\.in$/, "must use sjec email id"),
     phone: z.string().regex(/^\d{10}$/, "Phone number must be 10 digits"),
     branch: z.enum(["CSE", "IT", "ECE", "EEE", "MECH", "CIVIL"]),
-    subjects: z.array(z.string()).nonempty("Subjects are required"),
+    subjects: z.string().nonempty("Subjects are required"),
 });
 
 

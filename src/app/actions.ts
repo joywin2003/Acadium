@@ -32,3 +32,14 @@ export const getUserProfile = async (email: string) => {
   return userTemp;
 }
 
+export const createStudent = async (student: Student) => {
+  const newStudent = await db.student.create({
+    data: student,
+  });
+  return newStudent;
+};
+
+export const createFaculty = async (faculty:unknown) => {
+  console.log(faculty);
+  return faculty;
+};
