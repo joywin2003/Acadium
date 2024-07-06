@@ -9,13 +9,13 @@ export const navItems: NavItem[] = [
   },
   {
     title: "Students",
-    href: "/dashboard/students",
+    href: "/dashboard/student",
     icon: "student",
     label: "student",
   },
   {
     title: "Faculty",
-    href: "/dashboard/faculties",
+    href: "/dashboard/faculty",
     icon: "faculty",
     label: "faculty",
   },

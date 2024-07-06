@@ -27,7 +27,7 @@ export const StudentTable: React.FC = () => {
 
         <Button
           className="text-xs md:text-sm mt-4 md:mt-0"
-          onClick={() => router.push(`/dashboard/user/new`)}
+          onClick={() => router.push(`/dashboard/student/new`)}
         >
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
