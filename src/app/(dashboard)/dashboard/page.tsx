@@ -13,7 +13,7 @@ export default function page() {
       <Mail
         mails={mails}
         defaultLayout={defaultLayout}
-        defaultCollapsed={false}
+        // defaultCollapsed={defaultCollapsed !== undefined ? defaultCollapsed : false}
       />
     </div>
   );
