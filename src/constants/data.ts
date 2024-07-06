@@ -10,26 +10,20 @@ export const navItems: NavItem[] = [
   {
     title: "Students",
     href: "/dashboard/students",
-    icon: "user",
-    label: "user",
+    icon: "student",
+    label: "student",
   },
   {
     title: "Faculty",
     href: "/dashboard/faculties",
-    icon: "employee",
-    label: "employee",
+    icon: "faculty",
+    label: "faculty",
   },
   {
     title: "Profile",
     href: "/dashboard/profile",
     icon: "profile",
     label: "profile",
-  },
-  {
-    title: "Login",
-    href: "/",
-    icon: "login",
-    label: "login",
   },
 ];
 
