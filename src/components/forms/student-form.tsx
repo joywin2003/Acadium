@@ -25,40 +25,32 @@ import {
     SelectValue
 } from '~/components/ui/select';
 import { Separator } from '~/components/ui/separator';
-import { facultyFormSchema, type TFacultyFormSchema } from '~/server/api/schema/zod-schema';
-// import FileUpload from '../file-upload';
-// import { useToast } from '../ui/use-toast';
+import { studentFormSchema, type TStudentFormSchema } from '~/server/api/schema/zod-schema';
 
-
-const defaultValues: TFacultyFormSchema = {
+const defaultValues: TStudentFormSchema = {
     name: '',
+    usn: '',
     email: '',
     phone: '',
     branch: 'CSE',
-    subjects: [''],
+    section: 'A',
 };
 
+export default function StudentForm() {
+    const onSubmit = async (data: TStudentFormSchema) => { };
 
-export function FacultyForm() {
-
-    const form = useForm<TFacultyFormSchema>({
-        resolver: zodResolver(facultyFormSchema),
-        defaultValues
+    const form = useForm<TStudentFormSchema>({
+        resolver: zodResolver(studentFormSchema),
+        defaultValues,
     });
-
-    const onSubmit = async (data: TFacultyFormSchema) => {
-        // console.log(data);
-    }
 
     return (
         <>
-            <Heading title="Add New Faculty" description='' />
+            <Heading title="Add New Student" description='' />
             <Separator />
             <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="w-full space-y-8"
-                >
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+
                     <div className="gap-8 md:grid md:grid-cols-3">
                         <FormField
                             control={form.control}
@@ -75,6 +67,21 @@ export function FacultyForm() {
                         />
                         <FormField
                             control={form.control}
+                            name="usn"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>USN</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="USN" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )
+                            }
+                        />
+
+                        <FormField
+                            control={form.control}
                             name="email"
                             render={({ field }) => (
                                 <FormItem>
@@ -86,6 +93,7 @@ export function FacultyForm() {
                                 </FormItem>
                             )}
                         />
+
                         <FormField
                             control={form.control}
                             name="phone"
@@ -99,6 +107,7 @@ export function FacultyForm() {
                                 </FormItem>
                             )}
                         />
+
                         <FormField
                             control={form.control}
                             name="branch"
@@ -108,7 +117,7 @@ export function FacultyForm() {
                                     <FormControl>
                                         <Select onValueChange={field.onChange}>
                                             <SelectTrigger>
-                                                <SelectValue placeholder="Select Branch" />
+                                                <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="CSE">CSE</SelectItem>
@@ -124,22 +133,32 @@ export function FacultyForm() {
                                 </FormItem>
                             )}
                         />
+
                         <FormField
                             control={form.control}
-                            name="subjects"
+                            name="section"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Subjects</FormLabel>
+                                    <FormLabel>Section</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Subjects" {...field} />
+                                        <Select onValueChange={field.onChange}>
+                                            <SelectTrigger>
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="A">A</SelectItem>
+                                                <SelectItem value="B">B</SelectItem>
+                                                <SelectItem value="C">C</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
                     </div>
-                    <div className="flex items-center justify-end gap-2 p-8">
-                        <Button type="submit">Submit</Button>
+                    <div className="flex items-center justify-center md:justify-end gap-2 p-8">
+                        <Button type="submit" className='w-full md:w-24 text-md'>Submit</Button>
                     </div>
                 </form>
             </Form>
