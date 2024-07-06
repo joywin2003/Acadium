@@ -28,8 +28,19 @@ export function Mail({
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
   const [mail] = useMail();
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
-
+  const [selected, setSelected] = React.useState<Mail | null>(null);
   const router = useRouter();
+  React.useEffect(() => {
+    // Find the mail item based on mail.selected ID
+    const selectedMail = mails.find((item) => item.id === mail.selected) || null;
+
+    // Update the state with the found mail
+    setSelected(selectedMail);
+    if (isMobile && selectedMail) {
+      router.push(`dashboard/mail/${selectedMail?.id}`);
+    }
+    
+  }, [mail.selected, mails]);
 
   
 
@@ -83,7 +94,7 @@ export function Mail({
           <div className="flex-1">
             {isDesktop ? (
               <MailDisplay
-                mail={mails.find((item) => item.id === mail.selected) || null}
+                mail={selected || null}
               />
             ): null }
           </div>
