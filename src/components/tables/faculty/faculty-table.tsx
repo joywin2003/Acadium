@@ -8,8 +8,8 @@ import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { columns } from "./columns";
 import { useQuery } from "@tanstack/react-query";
-import { Suspense, lazy } from "react";
 import { getFacultyList } from "~/app/actions";
+import { AlertMessage } from "~/components/common/alertMessage";
 
 
 
@@ -38,7 +38,14 @@ export const FacultyTable: React.FC = () => {
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey="name" columns={columns} data={data ?? []} />
+      {error ? (
+        <AlertMessage
+          title="Error Fetching Data"
+          message={`Oops! We couldn't fetch the requested data right now. Please try again later.`}
+        />
+      ) : (
+        <DataTable searchKey="name" columns={columns} data={data || []} />
+      )}
     </>
   );
 };
