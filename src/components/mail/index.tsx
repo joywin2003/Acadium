@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { Search } from "lucide-react";
+import { PenIcon, Search } from "lucide-react";
 
 import { Input } from "~/components/ui/input";
 import {
@@ -15,6 +15,7 @@ import { MailList } from "~/components/mail/mail-list";
 import { type Mail } from "~/components/mail/data";
 import { useMail } from "~/hooks/use-mail";
 import { MailDisplay } from "./mail-display";
+import { Button } from "../ui/button";
 
 interface MailProps {
   mails: Mail[];
@@ -42,6 +43,8 @@ export function Mail({
           }}
           className="h-full max-h-[800px] items-stretch"
         >
+          <Button className="absolute z-10 bottom-16 right-16 px-6 py-6 text-lg rounded-xl space-x-2"><PenIcon className="h-4 w-4 md:h-5 md:w-5" />
+            <span>Compose</span></Button>
           <ResizableHandle withHandle />
           <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
             <Tabs defaultValue="all">
@@ -87,6 +90,7 @@ export function Mail({
           </ResizablePanel>
         </ResizablePanelGroup>
       </TooltipProvider>
+
     </div>
   );
 }
