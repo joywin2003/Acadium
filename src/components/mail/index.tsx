@@ -12,6 +12,7 @@ import { useMail } from "~/hooks/use-mail";
 import { Button } from "../ui/button";
 import { MailDisplay } from "./mail-display";
 import { useScreenDetector } from "~/hooks/useScreenDetector";
+import { useRouter } from "next/navigation";
 
 interface MailProps {
   mails: Mail[];
@@ -28,9 +29,9 @@ export function Mail({
   const [mail] = useMail();
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
 
-  React.useEffect(() => {
-    // You can handle layout changes here if needed
-  }, [isMobile, isTablet]);
+  const router = useRouter();
+
+  
 
   return (
     <div className="h-full w-full">
@@ -78,15 +79,13 @@ export function Mail({
               </Tabs>
             </div>
           </div>
-
           <div className="w-[1px] bg-gray-100"></div>
-
           <div className="flex-1">
             {isDesktop ? (
               <MailDisplay
                 mail={mails.find((item) => item.id === mail.selected) || null}
               />
-            ) : null}
+            ): null }
           </div>
         </div>
       </TooltipProvider>
