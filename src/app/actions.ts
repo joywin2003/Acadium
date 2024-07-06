@@ -11,8 +11,13 @@ import {
 } from "~/server/api/schema/zod-schema";
 
 export const getStudentList = async () => {
-  const students: Student[] = await db.student.findMany();
-  return students;
+  try {
+    const students: Student[] = await db.student.findMany();
+    return students;
+  }catch (error) {
+    throw error;
+  }
+ 
 };
 
 export const getFacultyList = async () => {
