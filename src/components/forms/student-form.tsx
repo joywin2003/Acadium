@@ -26,6 +26,8 @@ import {
 } from '~/components/ui/select';
 import { Separator } from '~/components/ui/separator';
 import { studentFormSchema, type TStudentFormSchema } from '~/server/api/schema/zod-schema';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createStudent } from '~/app/actions';
 
 const defaultValues: TStudentFormSchema = {
     name: '',
@@ -37,7 +39,25 @@ const defaultValues: TStudentFormSchema = {
 };
 
 export default function StudentForm() {
-    const onSubmit = async (data: TStudentFormSchema) => { };
+    const queryClient = useQueryClient();
+    const mutation = useMutation(
+        {
+            mutationFn: async (data: TStudentFormSchema) => {
+                return await createStudent(data)
+            },
+            onSuccess: () => {
+                toast.success('Student created successfully');
+                queryClient.invalidateQueries({ queryKey: ['student'] });
+                form.reset();
+            },
+            onError: (error) => {
+                toast.error(error.message);
+            }
+        }
+
+    );
+
+
 
     const form = useForm<TStudentFormSchema>({
         resolver: zodResolver(studentFormSchema),
@@ -52,7 +72,7 @@ export default function StudentForm() {
             />
             <Separator />
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form onSubmit={form.handleSubmit(()=>mutation.mutate(form.getValues()))}>
                     <div className="gap-8 md:grid md:grid-cols-3">
                         <FormField
                             control={form.control}
