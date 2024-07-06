@@ -37,10 +37,15 @@ export function Mail({
     // Update the state with the found mail
     setSelected(selectedMail);
     if (isMobile && selectedMail) {
+      console.log("mobile");
       router.push(`dashboard/mail/${selectedMail?.id}`);
     }
+    if (isDesktop && selectedMail) {
+      console.log("not mobile");
+      router.replace("/dashboard/");
+    }
     
-  }, [mail.selected, mails]);
+  }, [mail.selected, mails, isMobile, isDesktop]);
 
   
 

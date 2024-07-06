@@ -38,7 +38,7 @@ export function MailDisplay({ mail, className }: MailDisplayProps) {
   return (
     <div className={cn("flex h-full flex-col", className)}>
       <div className="flex items-center p-2">
-        <Button className="mr-2 px-8 py-4" size="icon" onClick={handleBack}>
+        <Button className="ml-2 px-8 py-4" size="icon" onClick={handleBack}>
           Back
         </Button>
         <div className="ml-auto flex items-center gap-2">
