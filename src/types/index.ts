@@ -59,3 +59,15 @@ export type Faculty = {
   branch: string;
   subjects: string;
 };
+
+
+export type Mail = {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  text: string;
+  date: Date;
+  read: boolean;
+  labels: string[];
+}

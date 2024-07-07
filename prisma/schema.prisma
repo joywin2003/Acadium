@@ -44,6 +44,7 @@ model Faculty {
     phone      String
     branch     String
     subjects   String
+    Sections   String[]
     // User       User        @relation(fields: [id], references: [id])
     // Department Department  @relation(fields: [branch], references: [name])
     // Academics  Academics[]
@@ -105,4 +106,16 @@ model Department {
     // User           User        @relation(fields: [secratory_id], references: [id])
     // Student        Student[]
     // Faculty        Faculty[]
+}
+
+
+model Mail {
+    id        String   @id @default(cuid())
+    name      String
+    email     String
+    subject   String
+    text      String
+    date      DateTime
+    read      Boolean
+    labels    String[]
 }
