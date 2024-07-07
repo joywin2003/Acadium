@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 import { MailDisplay } from "./mail-display";
 import { useScreenDetector } from "~/hooks/useScreenDetector";
 import { useRouter } from "next/navigation";
+import ComposeMail from "../compose-mail";
 
 interface MailProps {
   mails: Mail[];
@@ -32,9 +33,9 @@ export function Mail({
   const router = useRouter();
   const [isClient, setIsClient] = React.useState(false);
 
-    React.useEffect(() => {
-      setIsClient(true);
-    }, []);
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   React.useEffect(() => {
     // Find the mail item based on mail.selected ID
@@ -57,10 +58,7 @@ export function Mail({
     <div className="h-full w-full">
       <TooltipProvider delayDuration={0}>
         <div className="flex h-full max-h-[800px] items-stretch">
-          <Button className="absolute bottom-16 right-16 z-10 space-x-2 rounded-xl px-6 py-6 text-lg">
-            <PenIcon className="h-4 w-4 md:h-5 md:w-5" />
-            <span>Compose</span>
-          </Button>
+          <ComposeMail />
           <div className="flex w-full min-w-[200px] flex-col xl:w-2/5">
             <div className="flex h-full flex-col">
               <Tabs defaultValue="all" className="flex-1">
@@ -99,9 +97,11 @@ export function Mail({
               </Tabs>
             </div>
           </div>
-          <div className="w-[1px] bg-gray-100"></div>
+          <div className="w-[1px] bg-gray-100 dark:bg-gray-800"></div>
           <div className="flex-1">
-            {(isClient && isDesktop) ? <MailDisplay mail={selected || null} /> : null}
+            {isClient && isDesktop ? (
+              <MailDisplay mail={selected || null} />
+            ) : null}
           </div>
         </div>
       </TooltipProvider>
