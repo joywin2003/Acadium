@@ -10,9 +10,11 @@ import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
 import { Faculty } from "~/types";
 import { columns } from "./columns";
+import { useSession } from "next-auth/react";
 
 export const FacultyTable: React.FC = () => {
   const router = useRouter();
+  const { data: session } = useSession();
   const { data, error, isLoading } = useQuery<Faculty[] | null, Error>({
     queryKey: ["faculty"],
     queryFn: async () => await getFacultyList(),
@@ -27,13 +29,14 @@ export const FacultyTable: React.FC = () => {
           title={`St. Joseph Engineering College - Faculty (${data ? data.length : "Loading..."})`}
           description={`Manage faculty records and functionalities on the client-side.`}
         />
-
-        <Button
-          className="mt-4 text-xs md:mt-0 md:text-sm"
-          onClick={() => router.push(`/dashboard/faculty/new`)}
-        >
-          <Plus className="mr-2 h-4 w-4 " /> Add New
-        </Button>
+        {session?.user.role === "admin" && (
+          <Button
+            className="mt-4 text-xs md:mt-0 md:text-sm"
+            onClick={() => router.push(`/dashboard/faculty/new`)}
+          >
+            <Plus className="mr-2 h-4 w-4 " /> Add New
+          </Button>
+        )}
       </div>
       <Separator />
       {error ? (
