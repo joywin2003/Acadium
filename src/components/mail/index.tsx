@@ -30,12 +30,16 @@ export function Mail({
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
   const [selected, setSelected] = React.useState<Mail | null>(null);
   const router = useRouter();
+  const [isClient, setIsClient] = React.useState(false);
 
-  
+    React.useEffect(() => {
+      setIsClient(true);
+    }, []);
 
   React.useEffect(() => {
     // Find the mail item based on mail.selected ID
-    const selectedMail = mails.find((item) => item.id === mail.selected) || null;
+    const selectedMail =
+      mails.find((item) => item.id === mail.selected) || null;
 
     // Update the state with the found mail
     setSelected(selectedMail);
@@ -47,21 +51,18 @@ export function Mail({
       console.log("not mobile");
       router.replace("/dashboard/");
     }
-    
   }, [mail.selected, mails, isMobile, isDesktop]);
-
-  
 
   return (
     <div className="h-full w-full">
       <TooltipProvider delayDuration={0}>
         <div className="flex h-full max-h-[800px] items-stretch">
-          <Button className="absolute z-10 bottom-16 right-16 px-6 py-6 text-lg rounded-xl space-x-2">
+          <Button className="absolute bottom-16 right-16 z-10 space-x-2 rounded-xl px-6 py-6 text-lg">
             <PenIcon className="h-4 w-4 md:h-5 md:w-5" />
             <span>Compose</span>
           </Button>
-          <div className="flex flex-col w-full xl:w-2/5 min-w-[200px]">
-            <div className="flex flex-col h-full">
+          <div className="flex w-full min-w-[200px] flex-col xl:w-2/5">
+            <div className="flex h-full flex-col">
               <Tabs defaultValue="all" className="flex-1">
                 <div className="flex items-center px-4 py-2">
                   <h1 className="text-xl font-bold">Inbox</h1>
@@ -100,11 +101,7 @@ export function Mail({
           </div>
           <div className="w-[1px] bg-gray-100"></div>
           <div className="flex-1">
-            {isDesktop ? (
-              <MailDisplay
-                mail={selected || null}
-              />
-            ): null }
+            {(isClient && isDesktop) ? <MailDisplay mail={selected || null} /> : null}
           </div>
         </div>
       </TooltipProvider>
