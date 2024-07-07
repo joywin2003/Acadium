@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
   if (!token && url.pathname !== "/") {
     return NextResponse.redirect(new URL("/", request.url));
   }
-  if (url.pathname === "/dashboard/faculty/new" || "/dashboard/student/new") {
+  if (url.pathname === "/dashboard/faculty/new" || url.pathname ==="/dashboard/student/new") {
     if (token?.role !== "admin") {
       return NextResponse.redirect(new URL("/404", request.url));
     }
