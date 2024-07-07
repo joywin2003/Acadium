@@ -7,7 +7,7 @@ import {
   studentFormSchema,
 } from "~/server/api/schema/zod-schema";
 import { db } from "~/server/db";
-import { Faculty, Student, User,Mail } from "~/types";
+import { Faculty, Student, User, Mail } from "~/types";
 
 export const getStudentList = async () => {
   try {
@@ -105,26 +105,27 @@ export const createFaculty = async (faculty: TFacultyFormSchema) => {
   return newFaculty;
 };
 
-
 export const sendMail = async (mail: Mail) => {
-  try{
+  try {
     const newMail: Mail = await db.mail.create({
       data: mail,
     });
 
     return newMail;
-  }catch(err){
+  } catch (err) {
     console.log(err);
     throw err;
   }
-}
+};
 
 export const getMailList = async () => {
-  try{
+  try {
+    console.log("Database client:", db);
+    console.log("Database mail model:", db.mail);
     const mails: Mail[] = await db.mail.findMany();
-    return mails;
-  }catch(err){
+    return [];
+  } catch (err) {
     console.log(err);
     throw err;
   }
-}
+};

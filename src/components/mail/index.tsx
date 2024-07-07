@@ -30,6 +30,9 @@ export function Mail({
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
   const [selected, setSelected] = React.useState<Mail | null>(null);
   const router = useRouter();
+
+  
+
   React.useEffect(() => {
     // Find the mail item based on mail.selected ID
     const selectedMail = mails.find((item) => item.id === mail.selected) || null;

@@ -67,7 +67,7 @@ export type Mail = {
   email: string;
   subject: string;
   text: string;
-  date: Date;
+  date: string;
   read: boolean;
   labels: string[];
 }

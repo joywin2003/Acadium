@@ -52,28 +52,28 @@ model Faculty {
     // Sections   Sections[]
 }
 
-model Academics {
-    id        Int        @id @default(autoincrement())
-    usn       String
-    sem       Int
-    sgpa      Float
-    cgpa      Float
-    backlogs  Int
-    mentor_id String
-    // Student   Student[]
-    // Faculty   Faculty[]
-    // Subjects  Subjects[]
-}
+// model Academics {
+//     id        Int        @id @default(autoincrement())
+//     usn       String
+//     sem       Int
+//     sgpa      Float
+//     cgpa      Float
+//     backlogs  Int
+//     mentor_id String
+//     // Student   Student[]
+//     // Faculty   Faculty[]
+//     // Subjects  Subjects[]
+// }
 
 
-model Circulars {
-    id         String     @id @default(cuid())
-    title      String
-    content    String
-    attachment String
-    admin_id   String
-    Department Department @relation(fields: [admin_id], references: [secratory_id])
-}
+// model Circulars {
+//     id         String     @id @default(cuid())
+//     title      String
+//     content    String
+//     attachment String
+//     admin_id   String
+//     Department Department @relation(fields: [admin_id], references: [secratory_id])
+// }
 
 model Subjects {
     subject_code String    @id
@@ -87,13 +87,13 @@ model Subjects {
     // Academics    Academics[]
 }
 
-model Sections {
-    id             String    @id
-    name           String
-    class_guide_id String
-    // Student        Student[]
-    // Faculty        Faculty[]
-}
+// model Sections {
+//     id             String    @id
+//     name           String
+//     class_guide_id String
+//     // Student        Student[]
+//     // Faculty        Faculty[]
+// }
 
 model Department {
     id             String      @id
@@ -102,7 +102,7 @@ model Department {
     secratory_id   String      @unique
     secratory_name String
     phone          String
-    Circulars      Circulars[]
+    // Circulars      Circulars[]
     // User           User        @relation(fields: [secratory_id], references: [id])
     // Student        Student[]
     // Faculty        Faculty[]
@@ -115,7 +115,7 @@ model Mail {
     email     String
     subject   String
     text      String
-    date      DateTime
+    date      String
     read      Boolean
     labels    String[]
 }
