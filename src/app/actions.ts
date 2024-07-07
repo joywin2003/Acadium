@@ -120,8 +120,6 @@ export const sendMail = async (mail: Mail) => {
 
 export const getMailList = async () => {
   try {
-    console.log("Database client:", db);
-    console.log("Database mail model:", db.mail);
     const mails: Mail[] = await db.mail.findMany();
     return [];
   } catch (err) {
