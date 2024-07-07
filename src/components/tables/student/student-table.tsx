@@ -10,8 +10,10 @@ import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
 import { Student } from "~/types";
 import { columns } from "./columns";
+import { useSession } from "next-auth/react";
 
 export const StudentTable: React.FC = () => {
+  const { data: session } = useSession();
   const router = useRouter();
   const { data, error, isLoading } = useQuery<Student[] | null, Error>({
     queryKey: ["student"],
@@ -27,12 +29,14 @@ export const StudentTable: React.FC = () => {
           description={`Manage student records and functionalities on the client-side.`}
         />
 
-        <Button
-          className="mt-4 text-xs md:mt-0 md:text-sm"
-          onClick={() => router.push(`/dashboard/student/new`)}
-        >
-          <Plus className="mr-2 h-4 w-4" /> Add New
-        </Button>
+        {session?.user.role === "admin" && (
+          <Button
+            className="mt-4 text-xs md:mt-0 md:text-sm"
+            onClick={() => router.push(`/dashboard/faculty/new`)}
+          >
+            <Plus className="mr-2 h-4 w-4 " /> Add New
+          </Button>
+        )}
       </div>
       <Separator />
       {error ? (
