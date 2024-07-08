@@ -105,18 +105,21 @@ export const createFaculty = async (faculty: TFacultyFormSchema) => {
   return newFaculty;
 };
 
-export const sendMail = async (mail:{subject: string, message: string}) => {
-  // try {
-  //   const newMail: Mail = await db.mail.create({
-  //     data: mail,
-  //   });
+export const sendMail = async (mail: Mail) => {
+  try {
+    const newMail: Mail = await db.mail.create({
+      data: {
+        ...mail,
+        name: "John Doe",
+      }
+    });
 
-  //   return newMail;
-  // } catch (err) {
-  //   console.log(err);
-  //   throw err;
-  // }
-  console.log(mail);
+    return newMail;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+  console.log("in server", mail);
 };
 
 export const getMailList = async () => {

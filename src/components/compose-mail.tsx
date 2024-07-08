@@ -19,16 +19,26 @@ import { sendMail } from "~/app/actions";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { sub } from "date-fns";
+import { useSession } from "next-auth/react";
+import { Mail } from "~/types";
 
 export default function ComposeMail() {
-  const defaultValues = {
+  const { data: session } = useSession();
+  const defaultValues: Mail = {
     subject: "",
-    message: "",
+    text: "",
+    email: "",
+    date: "",
+    read: false,
+    labels: ["personal"],
   };
   const form = useForm({ defaultValues });
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: async (data: { subject: string; message: string }) => {
+    mutationFn: async (data: Mail) => {
+      const email = session?.user.email;
+      const date = sub(new Date(), { days: 1 }).toISOString();
+      data = { ...data, email, date, labels: ["personal"] };
       console.log(data);
       return await sendMail(data);
     },
@@ -38,7 +48,7 @@ export default function ComposeMail() {
       form.reset(defaultValues);
     },
     onError: (error: unknown) => {
-      toast.error("error.message");
+      toast.error(error.message);
     },
   });
   return (
@@ -73,7 +83,7 @@ export default function ComposeMail() {
 
             <FormField
               control={form.control}
-              name="message"
+              name="text"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Message</FormLabel>
