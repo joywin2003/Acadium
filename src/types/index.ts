@@ -62,8 +62,8 @@ export type Faculty = {
 
 
 export type Mail = {
-  // id: string;
-  // name: string;
+  id: string;
+  name: string;
   email: string;
   subject: string;
   text: string;

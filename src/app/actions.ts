@@ -119,13 +119,12 @@ export const sendMail = async (mail: Mail) => {
     console.log(err);
     throw err;
   }
-  console.log("in server", mail);
 };
 
 export const getMailList = async () => {
   try {
     const mails: Mail[] = await db.mail.findMany();
-    return [];
+    return mails;
   } catch (err) {
     console.log(err);
     throw err;

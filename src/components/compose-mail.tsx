@@ -24,10 +24,14 @@ import { Mail } from "~/types";
 
 export default function ComposeMail() {
   const { data: session } = useSession();
+  const email = session?.user.email;
+  const name = session?.user.name;
   const defaultValues: Mail = {
+    id: "",
+    name: name || "",
     subject: "",
     text: "",
-    email: "",
+    email: email || "",
     date: "",
     read: false,
     labels: ["personal"],
@@ -36,9 +40,8 @@ export default function ComposeMail() {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: Mail) => {
-      const email = session?.user.email;
       const date = sub(new Date(), { days: 1 }).toISOString();
-      data = { ...data, email, date, labels: ["personal"] };
+      data = { ...data, email, date, labels: ["personal"], name };
       console.log(data);
       return await sendMail(data);
     },
@@ -47,7 +50,7 @@ export default function ComposeMail() {
       queryClient.invalidateQueries({ queryKey: ["mail"] });
       form.reset(defaultValues);
     },
-    onError: (error: unknown) => {
+    onError: (error: any) => {
       toast.error(error.message);
     },
   });
