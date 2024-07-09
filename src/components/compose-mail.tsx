@@ -1,3 +1,4 @@
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,8 +21,10 @@ import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TMailSchema, mailSchema } from "~/server/api/schema/zod-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import React from "react";
 
 export default function ComposeMail() {
+  const [open, setOpen] = React.useState(false);
   const defaultValues: TMailSchema = {
     subject: "",
     text: "",
@@ -39,6 +42,7 @@ export default function ComposeMail() {
       return await sendMail(data);
     },
     onSuccess: () => {
+      setOpen(false);
       toast.success("Mail sent successfully");
       queryClient.invalidateQueries({ queryKey: ["mail"] });
       form.reset(defaultValues);
@@ -48,7 +52,7 @@ export default function ComposeMail() {
     },
   });
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button className="absolute bottom-16 right-16 z-10 space-x-2 rounded-xl px-6 py-6 text-lg">
           <PenIcon className="h-4 w-4 md:h-5 md:w-5" /> <span>Compose</span>
@@ -84,7 +88,10 @@ export default function ComposeMail() {
                 <FormItem>
                   <FormLabel>Message</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Type your message here." {...field} />
+                    <Textarea
+                      placeholder="Type your message here."
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
               )}
