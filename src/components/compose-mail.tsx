@@ -21,7 +21,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { sub } from "date-fns";
 import { useSession } from "next-auth/react";
 import { Mail } from "~/types";
-import cuid from 'cuid';
+import cuid from "cuid";
 
 export default function ComposeMail() {
   const { data: session } = useSession();

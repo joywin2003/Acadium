@@ -1,7 +1,6 @@
 "use client";
-import { PenIcon, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import * as React from "react";
-
 import { type Mail } from "~/components/mail/data";
 import { MailList } from "~/components/mail/mail-list";
 import { Input } from "~/components/ui/input";
@@ -9,7 +8,6 @@ import { Separator } from "~/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { TooltipProvider } from "~/components/ui/tooltip";
 import { useMail } from "~/hooks/use-mail";
-import { Button } from "../ui/button";
 import { MailDisplay } from "./mail-display";
 import { useScreenDetector } from "~/hooks/useScreenDetector";
 import { useRouter } from "next/navigation";
@@ -17,21 +15,16 @@ import ComposeMail from "../compose-mail";
 
 interface MailProps {
   mails: Mail[];
-  defaultLayout?: number[];
-  defaultCollapsed?: boolean;
 }
 
 export function Mail({
   mails,
-  defaultLayout = [265, 45, 55],
-  defaultCollapsed = false,
 }: MailProps) {
-  const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
+  const [selected, setSelected] = React.useState<Mail | null>(null);
+  const [isClient, setIsClient] = React.useState(false);
+  const router = useRouter();
   const [mail] = useMail();
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
-  const [selected, setSelected] = React.useState<Mail | null>(null);
-  const router = useRouter();
-  const [isClient, setIsClient] = React.useState(false);
 
   React.useEffect(() => {
     setIsClient(true);
