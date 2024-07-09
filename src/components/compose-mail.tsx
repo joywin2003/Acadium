@@ -18,32 +18,23 @@ import { Textarea } from "./ui/textarea";
 import { sendMail } from "~/app/actions";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { sub } from "date-fns";
-import { useSession } from "next-auth/react";
-import { Mail } from "~/types";
-import cuid from "cuid";
+import { TMailSchema, mailSchema } from "~/server/api/schema/zod-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function ComposeMail() {
-  const { data: session } = useSession();
-  const email = session?.user.email;
-  const name = session?.user.name;
-  const defaultValues: Mail = {
-    id: "",
-    name: name || "",
+  const defaultValues: TMailSchema = {
     subject: "",
     text: "",
-    email: email || "",
-    date: "",
-    read: false,
-    labels: ["personal"],
+    // labels: ["personal"],
   };
-  const form = useForm({ defaultValues });
+  const form = useForm<TMailSchema>({
+    defaultValues,
+    resolver: zodResolver(mailSchema),
+  });
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: async (data: Mail) => {
-      // const id = cuid();
-      const date = sub(new Date(), { days: 0 }).toISOString();
-      data = { ...data, email, date, labels: ["personal"], name };
+    mutationFn: async (data: TMailSchema) => {
+      data = { ...data };
       console.log(data);
       return await sendMail(data);
     },
@@ -93,14 +84,14 @@ export default function ComposeMail() {
                 <FormItem>
                   <FormLabel>Message</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Type your message here." />
+                    <Textarea placeholder="Type your message here." {...field} />
                   </FormControl>
                 </FormItem>
               )}
             ></FormField>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction type="submit">Send</AlertDialogAction>
+              <Button type="submit">Send</Button>
             </AlertDialogFooter>
           </form>
         </Form>

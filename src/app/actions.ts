@@ -2,6 +2,7 @@
 
 import {
   TFacultyFormSchema,
+  TMailSchema,
   TStudentFormSchema,
   facultyFormSchema,
   studentFormSchema,
@@ -10,6 +11,7 @@ import { db } from "~/server/db";
 import { Faculty, Student, User, Mail } from "~/types";
 import {getServerSession} from "next-auth"
 import cuid from "cuid";
+import { sub } from "date-fns";
 
 export const getStudentList = async () => {
   try {
@@ -107,7 +109,7 @@ export const createFaculty = async (faculty: TFacultyFormSchema) => {
   return newFaculty;
 };
 
-export const sendMail = async (mail: Mail) => {
+export const sendMail = async (mail: TMailSchema) => {
   try {
     const session = await getServerSession();
     // console.log(session);
@@ -115,12 +117,16 @@ export const sendMail = async (mail: Mail) => {
       throw new Error("Not logged in");
     }
     const id = cuid();
+    const date = sub(new Date(), { days: 0 }).toISOString();
+  
     const newMail: Mail = await db.mail.create({
       data: {
         ...mail,
         name: session.user?.name || "",
         email: session.user?.email || "",
         id,
+        read: false,
+        date,
       }
     });
     return newMail;

@@ -31,3 +31,11 @@ export const studentFormSchema = z.object({
 })
 
 export type TStudentFormSchema = z.infer<typeof studentFormSchema>;
+
+
+export const mailSchema = z.object({
+    subject: z.string().nonempty("Subject is required"),
+    text: z.string().min(1, "Text is required"),
+});
+
+export type TMailSchema = z.infer<typeof mailSchema>;
