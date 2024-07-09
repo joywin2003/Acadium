@@ -8,9 +8,11 @@ import {
 } from "~/server/api/schema/zod-schema";
 import { db } from "~/server/db";
 import { Faculty, Student, User, Mail } from "~/types";
+import {getServerSession} from "next-auth"
 
 export const getStudentList = async () => {
   try {
+    console.log("session" , await getServerSession())
     const students: Student[] = await db.student.findMany();
     return students;
   } catch (error) {
