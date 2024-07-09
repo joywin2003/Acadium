@@ -41,9 +41,9 @@ export default function ComposeMail() {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: Mail) => {
-      const id = cuid();
+      // const id = cuid();
       const date = sub(new Date(), { days: 0 }).toISOString();
-      data = { ...data, email, date, labels: ["personal"], name, id };
+      data = { ...data, email, date, labels: ["personal"], name };
       console.log(data);
       return await sendMail(data);
     },

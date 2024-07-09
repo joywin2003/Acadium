@@ -8,6 +8,8 @@ import {
 } from "~/server/api/schema/zod-schema";
 import { db } from "~/server/db";
 import { Faculty, Student, User, Mail } from "~/types";
+import {getServerSession} from "next-auth"
+import cuid from "cuid";
 
 export const getStudentList = async () => {
   try {
@@ -107,13 +109,20 @@ export const createFaculty = async (faculty: TFacultyFormSchema) => {
 
 export const sendMail = async (mail: Mail) => {
   try {
+    const session = await getServerSession();
+    // console.log(session);
+    if (!session) {
+      throw new Error("Not logged in");
+    }
+    const id = cuid();
     const newMail: Mail = await db.mail.create({
       data: {
         ...mail,
-        name: "John Doe",
+        name: session.user?.name || "",
+        email: session.user?.email || "",
+        id,
       }
     });
-
     return newMail;
   } catch (err) {
     console.log(err);
