@@ -21,6 +21,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { sub } from "date-fns";
 import { useSession } from "next-auth/react";
 import { Mail } from "~/types";
+import cuid from 'cuid';
 
 export default function ComposeMail() {
   const { data: session } = useSession();
@@ -40,8 +41,9 @@ export default function ComposeMail() {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: Mail) => {
-      const date = sub(new Date(), { days: 1 }).toISOString();
-      data = { ...data, email, date, labels: ["personal"], name };
+      const id = cuid();
+      const date = sub(new Date(), { days: 0 }).toISOString();
+      data = { ...data, email, date, labels: ["personal"], name, id };
       console.log(data);
       return await sendMail(data);
     },
