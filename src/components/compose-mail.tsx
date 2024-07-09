@@ -1,4 +1,11 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { PenIcon } from "lucide-react";
+import React from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { sendMail } from "~/app/actions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,17 +18,10 @@ import {
   AlertDialogTrigger,
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
-import { Input } from "./ui/input";
-import { PenIcon } from "lucide-react";
-import { FormProvider, useForm } from "react-hook-form";
-import { FormControl, FormField, FormItem, FormLabel, Form } from "./ui/form";
-import { Textarea } from "./ui/textarea";
-import { sendMail } from "~/app/actions";
-import { toast } from "sonner";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TMailSchema, mailSchema } from "~/server/api/schema/zod-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
 export default function ComposeMail() {
   const [open, setOpen] = React.useState(false);
@@ -61,6 +61,9 @@ export default function ComposeMail() {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>New Email</AlertDialogTitle>
+          <AlertDialogDescription>
+            Send a mail using the form below
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <Form {...form}>
           <form
