@@ -5,18 +5,19 @@ import {
   TMailSchema,
   TStudentFormSchema,
   facultyFormSchema,
+  mailSchema,
   studentFormSchema,
 } from "~/server/api/schema/zod-schema";
 import { db } from "~/server/db";
 import { Faculty, Student, User, Mail } from "~/types";
-import {getServerSession} from "next-auth"
+import { getServerSession } from "next-auth";
 import cuid from "cuid";
 import { sub } from "date-fns";
 
 export const getStudentList = async () => {
   try {
     const students: Student[] = await db.student.findMany();
-    console.log("in student")
+    console.log("in student");
     return students;
   } catch (error) {
     console.error("Database connection error: ", error);
@@ -113,6 +114,13 @@ export const createFaculty = async (faculty: TFacultyFormSchema) => {
 
 export const sendMail = async (mail: TMailSchema) => {
   try {
+    const validationResult = mailSchema.safeParse(mail);
+    if (!validationResult.success) {
+      throw new Error(
+        "Validation error: " +
+          validationResult.error.errors.map((e) => e.message).join(", "),
+      );
+    }
     const session = await getServerSession();
     // console.log(session);
     if (!session) {
@@ -120,7 +128,7 @@ export const sendMail = async (mail: TMailSchema) => {
     }
     const id = cuid();
     const date = sub(new Date(), { days: 0 }).toISOString();
-  
+
     const newMail: Mail = await db.mail.create({
       data: {
         ...mail,
@@ -129,7 +137,7 @@ export const sendMail = async (mail: TMailSchema) => {
         id,
         read: false,
         date,
-      }
+      },
     });
     return newMail;
   } catch (err) {
