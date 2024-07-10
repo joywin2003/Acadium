@@ -195,6 +195,7 @@ export const sendMail = async (mail: TMailSchema) => {
 export const getMailList = async () => {
   try {
     const mails: Mail[] = await db.mail.findMany();
+    console.log(1, mails);
     return mails;
   } catch (err) {
     console.log(err);
