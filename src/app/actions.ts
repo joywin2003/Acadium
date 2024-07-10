@@ -16,8 +16,10 @@ import { sub } from "date-fns";
 export const getStudentList = async () => {
   try {
     const students: Student[] = await db.student.findMany();
+    console.log("in student")
     return students;
   } catch (error) {
+    console.error("Database connection error: ", error);
     throw error;
   }
 };

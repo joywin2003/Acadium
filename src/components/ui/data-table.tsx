@@ -16,8 +16,8 @@ import {
   TableHeader,
   TableRow
 } from '~/components/ui/table';
-import { Input } from './input';
 import { Button } from './button';
+import { Input } from './input';
 import { ScrollArea, ScrollBar } from './scroll-area';
 import { Skeleton } from './skeleton';
 
@@ -25,12 +25,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchKey: string;
+  loading?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  searchKey
+  searchKey,
+  loading
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -73,8 +75,8 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+            {!loading ? (
+              table.getRowModel().rows?.length ? (table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
@@ -87,8 +89,16 @@ export function DataTable<TData, TValue>({
                       )}
                     </TableCell>
                   ))}
-                </TableRow>
-              ))
+                </TableRow>)
+              )) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No student records found.
+                  </TableCell>
+                </TableRow>)
             ) : (
               <TableRow>
                 <TableCell

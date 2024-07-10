@@ -1,6 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { getStudentList } from "~/app/actions";
 import { AlertMessage } from "~/components/common/alertMessage";
@@ -10,7 +11,6 @@ import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
 import { Student } from "~/types";
 import { columns } from "./columns";
-import { useSession } from "next-auth/react";
 
 export const StudentTable: React.FC = () => {
   const { data: session } = useSession();
@@ -20,12 +20,13 @@ export const StudentTable: React.FC = () => {
     queryFn: async () => await getStudentList(),
   });
 
+
   return (
     <>
       <div className="flex items-start justify-between">
         <Heading
           className="text-7xl "
-          title={`St. Joseph Engineering College - Student (${data?.length || "Loading..."})`}
+          title={`St. Joseph Engineering College - Student (${isLoading?"Loading...":data?.length})`}
           description={`Manage student records and functionalities on the client-side.`}
         />
 
@@ -45,7 +46,7 @@ export const StudentTable: React.FC = () => {
           message={`Oops! We couldn't fetch the requested data right now. Please try again later.`}
         />
       ) : (
-        <DataTable searchKey="name" columns={columns} data={data || []} />
+        <DataTable searchKey="name" columns={columns} loading={isLoading} data={data || []} />
       )}
     </>
   );
