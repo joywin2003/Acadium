@@ -6,20 +6,24 @@ import { TooltipProvider } from "~/components/ui/tooltip";
 import { useScreenDetector } from "~/hooks/useScreenDetector";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useGlobalContext } from "~/context/store";
 
 export default function OpenMail({ params }: { params: { id: string } }) {
+  const { mailContext, setMailContext } = useGlobalContext();
+  let mail = null;
   const { isDesktop } = useScreenDetector();
-  const mail = mails.find((mail) => mail.id === params.id) || null;
+  if (mailContext) {
+    mail = mailContext.find((mail) => mail.id === params.id) || null;
+  } 
   const router = useRouter();
 
-
   useEffect(() => {
-    if(isDesktop) {
-      router.replace("/dashboard/")
+    if (isDesktop) {
+      router.replace("/dashboard/");
     }
-  })
+  });
 
-  return ( 
+  return (
     <TooltipProvider>
       <MailDisplay mail={mail} />
     </TooltipProvider>

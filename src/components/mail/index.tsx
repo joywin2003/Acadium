@@ -20,7 +20,7 @@ interface MailProps {
 export function Mail({
   mails,
 }: MailProps) {
-  const [selected, setSelected] = React.useState<Mail | null>(null);
+  const [selectedMail, setSelected] = React.useState<Mail | null>(null);
   const [isClient, setIsClient] = React.useState(false);
   const router = useRouter();
   const [mail] = useMail();
@@ -93,7 +93,7 @@ export function Mail({
           <div className="w-[1px] bg-gray-100 dark:bg-gray-800"></div>
           <div className="flex-1">
             {isClient && isDesktop ? (
-              <MailDisplay mail={selected || null} />
+              <MailDisplay mail={selectedMail || null} />
             ) : null}
           </div>
         </div>

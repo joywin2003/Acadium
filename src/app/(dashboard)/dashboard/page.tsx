@@ -1,22 +1,29 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 // import { cookies } from "next/headers";
-import { use } from "react";
+import { use, useEffect } from "react";
 import { getMailList } from "~/app/actions";
 import { Mail } from "~/components/mail";
 import { type Mail as MailType } from '~/types';
+import { useGlobalContext } from "~/context/store";
 
 export default function page() {
   // const layout = cookies().get("react-resizable-panels:layout");
   // const collapsed = cookies().get("react-resizable-panels:collapsed");
   // const defaultLayout = layout ? JSON.parse(layout.value) : undefined;
   // const defaultCollapsed = collapsed ? JSON.parse(collapsed.value) : undefined;
-
+  const {mailContext, setMailContext} = useGlobalContext();
 
   const {data,isLoading, error} = useQuery<MailType[] | null, Error>({
     queryKey: ["mail"],
     queryFn: async () => await getMailList(),
   })
+
+  useEffect(() => {
+    if (data) {
+      setMailContext(data);
+    }
+  }, [data]);
   
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading mails</div>;
