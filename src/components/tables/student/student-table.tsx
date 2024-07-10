@@ -33,7 +33,7 @@ export const StudentTable: React.FC = () => {
         {session?.user.role === "admin" && (
           <Button
             className="mt-4 text-xs md:mt-0 md:text-sm"
-            onClick={() => router.push(`/dashboard/faculty/new`)}
+            onClick={() => router.push(`/dashboard/student/new`)}
           >
             <Plus className="mr-2 h-4 w-4 " /> Add New
           </Button>
