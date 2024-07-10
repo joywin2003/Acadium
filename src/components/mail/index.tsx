@@ -1,20 +1,15 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import { getMailList } from "~/app/actions";
 import { type Mail } from "~/components/mail/data";
 import { MailList } from "~/components/mail/mail-list";
 import { Input } from "~/components/ui/input";
 import { Separator } from "~/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { TooltipProvider } from "~/components/ui/tooltip";
-import { useGlobalContext } from "~/context/store";
 import { useMail } from "~/hooks/use-mail";
 import { useScreenDetector } from "~/hooks/useScreenDetector";
-import { type Mail as MailType } from "~/types";
 import ComposeMail from "../compose-mail";
 import { MailDisplay } from "./mail-display";
 
@@ -29,29 +24,6 @@ export function Mail({ mails, isLoading }: MailProps) {
   const router = useRouter();
   const [mail] = useMail();
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
-  // const { mailContext, setMailContext } = useGlobalContext();
-  // const [mails, setMails] = useState<Mail[] | null>(null);
-
-  // // Fetch mail data
-  // const { data, isLoading, error } = useQuery<MailType[] | null, Error>({
-  //   queryKey: ["mail"],
-  //   queryFn: getMailList,
-  // });
-
-  // useEffect(() => {
-  //   if (data) {
-  //     console.log("Fetched mail data:", data); // Debugging line
-  //     setMails(data);
-  //     setMailContext(data);
-  //   }
-  // }, [data, setMailContext]);
-
-  // useEffect(() => {
-  //   if (error) {
-  //     console.error("Error fetching mails:", error);
-  //     toast.error("Error fetching mail. Please try again later.");
-  //   }
-  // }, [error]);
 
   useEffect(() => {
     setIsClient(true);
