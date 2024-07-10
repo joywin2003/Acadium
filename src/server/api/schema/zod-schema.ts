@@ -37,7 +37,7 @@ export type TStudentFormSchema = z.infer<typeof studentFormSchema>;
 export const mailSchema = z.object({
     subject: z.string().nonempty("Subject is required"),
     text: z.string().min(1, "Text is required"),
-    image: z.array(z.instanceof(File)).max(5,"maximum 5 files can be uploaded")
+    // image: z.array(z.instanceof(File)).max(5,"maximum 5 files can be uploaded")
 });
 
 export type TMailSchema = z.infer<typeof mailSchema>;

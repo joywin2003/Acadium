@@ -16,6 +16,7 @@ import { useScreenDetector } from "~/hooks/useScreenDetector";
 import { type Mail as MailType } from "~/types";
 import ComposeMail from "../compose-mail";
 import { MailDisplay } from "./mail-display";
+import { toast } from "sonner";
 
 interface MailProps {
   // mails: Mail[];
@@ -40,6 +41,11 @@ export function Mail(
     queryKey: ["mail"],
     queryFn: getMailList,
   });
+
+  if (error?.message) {
+    console.error(error);
+    toast.error("Error fetching mail. Please try again later.");
+  }
 
   // Update global context with fetched mail data
   useEffect(() => {

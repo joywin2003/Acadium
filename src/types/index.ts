@@ -70,5 +70,5 @@ export type Mail = {
   date: string;
   read: boolean;
   labels: string[];
-  image?: File[]; 
+  // image?: File[]; 
 }

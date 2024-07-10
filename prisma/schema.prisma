@@ -113,5 +113,6 @@ model Mail {
     date    String
     read    Boolean
     labels  String[]
+    // image   String[]
 }
 
