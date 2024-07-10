@@ -12,26 +12,26 @@ datasource db {
 }
 
 model User {
-    id         String       @id 
-    email      String       @unique
-    name       String
-    role       String
-    password   String
-    createdAt  DateTime     @default(now())
-    updatedAt  DateTime     @updatedAt
+    id        String   @id @default(cuid())
+    email     String   @unique
+    name      String
+    role      String
+    password  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
     // Student    Student?
     // Faculty    Faculty?
     // Department Department?
 }
 
 model Student {
-    id         String      @id @default(cuid())
-    usn        String      @unique
-    name       String
-    email      String       @unique
-    phone      String
-    branch     String
-    section    String
+    id      String @id @default(cuid())
+    usn     String @unique
+    name    String
+    email   String @unique
+    phone   String
+    branch  String
+    section String
     // Academics  Academics[]
     // User       User        @relation(fields: [id], references: [id])
     // Department Department  @relation(fields: [branch], references: [name])
@@ -39,13 +39,13 @@ model Student {
 }
 
 model Faculty {
-    id         String      @id @default(cuid())
-    name       String
-    email      String
-    phone      String
-    branch     String
-    subjects   String
-    Sections   String[]
+    id       String   @id @default(cuid())
+    name     String
+    email    String
+    phone    String
+    branch   String
+    subjects String
+    Sections String[]
     // User       User        @relation(fields: [id], references: [id])
     // Department Department  @relation(fields: [branch], references: [name])
     // Academics  Academics[]
@@ -66,7 +66,6 @@ model Faculty {
 //     // Subjects  Subjects[]
 // }
 
-
 // model Circulars {
 //     id         String     @id @default(cuid())
 //     title      String
@@ -77,7 +76,7 @@ model Faculty {
 // }
 
 model Subjects {
-    subject_code String    @id
+    subject_code String @id
     name         String
     credit       Int
     internal     Int
@@ -97,10 +96,10 @@ model Subjects {
 // }
 
 model Department {
-    id             String      @id
-    name           String      @unique
+    id             String @id
+    name           String @unique
     hod_id         String
-    secratory_id   String      @unique
+    secratory_id   String @unique
     secratory_name String
     phone          String
     // Circulars      Circulars[]
@@ -109,14 +108,13 @@ model Department {
     // Faculty        Faculty[]
 }
 
-
 model Mail {
-    id        String   @id @default(cuid())
-    name      String
-    email     String
-    subject   String
-    text      String
-    date      String
-    read      Boolean
-    labels    String[]
+    id      String   @id @default(cuid())
+    name    String
+    email   String
+    subject String
+    text    String
+    date    String
+    read    Boolean
+    labels  String[]
 }
