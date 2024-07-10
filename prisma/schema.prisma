@@ -45,7 +45,7 @@ model Faculty {
     phone    String
     branch   String
     subjects String
-    Sections String[]
+    section String
     // User       User        @relation(fields: [id], references: [id])
     // Department Department  @relation(fields: [branch], references: [name])
     // Academics  Academics[]
