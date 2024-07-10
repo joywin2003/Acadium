@@ -28,6 +28,7 @@ export default function ComposeMail() {
   const defaultValues: TMailSchema = {
     subject: "",
     text: "",
+    image: [],
     // labels: ["personal"],
   };
   const form = useForm<TMailSchema>({

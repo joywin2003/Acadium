@@ -6,26 +6,26 @@ import { toast } from "sonner";
 import { createFaculty } from "~/app/actions";
 import { Button } from "~/components/ui/button";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "~/components/ui/form";
 import { Heading } from "~/components/ui/heading";
 import { Input } from "~/components/ui/input";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "~/components/ui/select";
 import { Separator } from "~/components/ui/separator";
 import {
-    facultyFormSchema,
-    type TFacultyFormSchema,
+  facultyFormSchema,
+  type TFacultyFormSchema,
 } from "~/server/api/schema/zod-schema";
 
 const defaultValues: TFacultyFormSchema = {
@@ -34,6 +34,7 @@ const defaultValues: TFacultyFormSchema = {
   phone: "",
   branch: "CSE",
   subjects: "",
+  section: "A",
 };
 
 export function FacultyForm() {
@@ -143,6 +144,19 @@ export function FacultyForm() {
                   <FormLabel>Subjects</FormLabel>
                   <FormControl>
                     <Input placeholder="Subjects" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="section"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Section</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Section" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
