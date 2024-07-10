@@ -96,7 +96,7 @@ export function DataTable<TData, TValue>({
                     colSpan={columns.length}
                     className="h-24 text-center"
                   >
-                    No student records found.
+                    No data records found.
                   </TableCell>
                 </TableRow>)
             ) : (

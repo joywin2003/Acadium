@@ -1,6 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { getFacultyList } from "~/app/actions";
 import { AlertMessage } from "~/components/common/alertMessage";
@@ -10,7 +11,6 @@ import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
 import { Faculty } from "~/types";
 import { columns } from "./columns";
-import { useSession } from "next-auth/react";
 
 export const FacultyTable: React.FC = () => {
   const router = useRouter();
@@ -26,7 +26,7 @@ export const FacultyTable: React.FC = () => {
     <>
       <div className="flex items-start justify-between">
         <Heading
-          title={`St. Joseph Engineering College - Faculty (${data ? data.length : "Loading..."})`}
+          title={`St. Joseph Engineering College - Faculty (${isLoading ? "Loading..." : data?.length})`}
           description={`Manage faculty records and functionalities on the client-side.`}
         />
         {session?.user.role === "admin" && (
@@ -45,7 +45,7 @@ export const FacultyTable: React.FC = () => {
           message={`Oops! We couldn't fetch the requested data right now. Please try again later.`}
         />
       ) : (
-        <DataTable searchKey="name" columns={columns} data={data || []} />
+        <DataTable searchKey="name" loading={isLoading} columns={columns} data={data || []} />
       )}
     </>
   );
