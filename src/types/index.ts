@@ -72,3 +72,14 @@ export type Mail = {
   labels: string[];
   // image?: File[]; 
 }
+
+
+import { type ClientUploadedFileData } from "uploadthing/types"
+import { Key } from "react";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+
+export interface UploadedFile<T = unknown> extends ClientUploadedFileData<T> {
+  key: Key | null | undefined;
+  url: string | StaticImport;
+  name: string;
+}
