@@ -55,7 +55,7 @@ export default function ComposeMail() {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button className="absolute bottom-16 right-16 z-10 space-x-2 rounded-xl px-6 py-6 text-lg">
+        <Button className="absolute bottom-12 right-8 z-10 space-x-2 rounded-xl px-6 py-6 text-xl md:text-lg">
           <PenIcon className="h-4 w-4 md:h-5 md:w-5" /> <span>Compose</span>
         </Button>
       </AlertDialogTrigger>
@@ -84,7 +84,6 @@ export default function ComposeMail() {
                 </FormItem>
               )}
             ></FormField>
-
             <FormField
               control={form.control}
               name="text"

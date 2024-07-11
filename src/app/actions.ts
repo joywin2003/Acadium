@@ -50,7 +50,7 @@ export const getUserProfile = async (email: string) => {
     id: user?.id || "",
     usn: "",
     role: user?.role || "student",
-    name: "John Doe",
+    name: user?.name || "",
     email: user?.email || "",
     branch: "CSE",
   };

@@ -22,7 +22,7 @@ export default function RootLayout({
       className={`${GeistSans.variable}`}
       suppressHydrationWarning
     >
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true} className="text-xl md:text-lg">
         <Providers>
           {children}
           <Toaster
