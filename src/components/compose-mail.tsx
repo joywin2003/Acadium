@@ -24,6 +24,29 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { FileUploader } from "./file-uploader";
 
+
+async function uploadFile(file: File) {
+  const cloudinaryAPI = process.env.CLOUDINARY_API_KEY;
+  console.log(cloudinaryAPI);
+
+  if ( typeof file === 'undefined' ) return;
+
+  const formData = new FormData();
+  console.log(1, formData);
+  formData.append('file', file);
+  formData.append('upload_preset', 'q9e18w3l');
+  formData.append('api_key', `${cloudinaryAPI}`);
+  console.log(2, formData);
+
+  const results = await fetch('https://api.cloudinary.com/v1_1/dxf13kwiz/image/upload', {
+    method: 'POST',
+    body: formData
+  }).then(r => r.json());
+  console.log(results.url);
+  return results.url;
+}
+
+
 export default function ComposeMail() {
   const [open, setOpen] = React.useState(false);
   const defaultValues: TMailSchema = {
@@ -39,9 +62,13 @@ export default function ComposeMail() {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: TMailSchema) => {
-      data = { ...data };
-      console.log(data);
-      return await sendMail(data);
+      if(data.image.length !== 0){
+        const url = await uploadFile(data.image[0] as File);
+        data = { ...data, image: url };
+      }
+      console.log(data); 
+      // return await sendMail(data);
+      return;
     },
     onSuccess: () => {
       setOpen(false);
@@ -116,7 +143,7 @@ export default function ComposeMail() {
                     maxSize={4 * 1024 * 1024}
                     // progresses={progresses}
                     // pass the onUpload function here for direct upload
-                    // onUpload={uploadFiles}
+                    // onUpload={handleOnSubmit(field.value[0])}
                     // disabled={isUploading}
                   />
                 </FormControl>
