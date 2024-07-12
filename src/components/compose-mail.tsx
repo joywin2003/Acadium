@@ -19,11 +19,18 @@ import {
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
 import { TMailSchema, mailSchema } from "~/server/api/schema/zod-schema";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { FileUploader } from "./file-uploader";
-
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 async function uploadFile(file: File) {
   const cloudinaryAPI = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
@@ -34,23 +41,22 @@ async function uploadFile(file: File) {
     return;
   }
 
-  if ( typeof file === 'undefined' ) return;
+  if (typeof file === "undefined") return;
 
   const formData = new FormData();
   console.log(1, formData);
-  formData.append('file', file);
-  formData.append('upload_preset', 'q9e18w3l');
-  formData.append('api_key', `${cloudinaryAPI}`);
+  formData.append("file", file);
+  formData.append("upload_preset", "q9e18w3l");
+  formData.append("api_key", `${cloudinaryAPI}`);
   console.log(2, formData);
 
   const results = await fetch(`${cloudinaryURL}`, {
-    method: 'POST',
-    body: formData
-  }).then(r => r.json());
+    method: "POST",
+    body: formData,
+  }).then((r) => r.json());
   console.log(results.url);
   return results.url;
 }
-
 
 export default function ComposeMail() {
   const [open, setOpen] = React.useState(false);
@@ -68,13 +74,13 @@ export default function ComposeMail() {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: TMailSchema) => {
-      if(data.image.length !== 0){
+      if (data.image.length !== 0) {
         console.log(data.image[0]);
         const url = await uploadFile(data.image[0] as File);
         console.log(url);
         data = { ...data, image: [], url };
       }
-      console.log(data); 
+      console.log(data);
       return await sendMail(data);
     },
     onSuccess: () => {
@@ -96,7 +102,9 @@ export default function ComposeMail() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>New Email</AlertDialogTitle>
+          <VisuallyHidden.Root asChild>
+            <AlertDialogTitle>New Email</AlertDialogTitle>
+          </VisuallyHidden.Root>
           <AlertDialogDescription>
             Send a mail using the form below
           </AlertDialogDescription>
@@ -132,34 +140,33 @@ export default function ComposeMail() {
                     />
                   </FormControl>
                 </FormItem>
-                
               )}
             ></FormField>
             <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <div className="space-y-6">
-              <FormItem className="w-full">
-                <FormLabel>Images</FormLabel>
-                <FormControl>
-                  <FileUploader
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    maxFiles={4}
-                    maxSize={4 * 1024 * 1024}
-                    // progresses={progresses}
-                    // pass the onUpload function here for direct upload
-                    // onUpload={handleOnSubmit(field.value[0])}
-                    // disabled={isUploading}
-                  />
-                </FormControl>
-                {/* <FormMessage /> */}
-              </FormItem>           
-            </div>
-          )}
-        />
-            <AlertDialogFooter className="flex justify-between my-4">
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <div className="space-y-6">
+                  <FormItem className="w-full">
+                    <FormLabel>Images</FormLabel>
+                    <FormControl>
+                      <FileUploader
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        maxFiles={4}
+                        maxSize={4 * 1024 * 1024}
+                        // progresses={progresses}
+                        // pass the onUpload function here for direct upload
+                        // onUpload={handleOnSubmit(field.value[0])}
+                        // disabled={isUploading}
+                      />
+                    </FormControl>
+                    {/* <FormMessage /> */}
+                  </FormItem>
+                </div>
+              )}
+            />
+            <AlertDialogFooter className="my-4 flex justify-between">
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <Button type="submit">Send</Button>
             </AlertDialogFooter>
