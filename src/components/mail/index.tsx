@@ -24,6 +24,22 @@ export function Mail({ mails, isLoading }: MailProps) {
   const router = useRouter();
   const [mail] = useMail();
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredMails = mails
+    .filter((mail) => {
+      if (!searchQuery) return true;
+      return mail.subject.toLowerCase().includes(searchQuery.toLowerCase());
+    })
+    .sort((a, b) => {
+      if (a.date > b.date) return -1;
+      if (a.date < b.date) return 1;
+      return 0;
+    });
 
   useEffect(() => {
     setIsClient(true);
@@ -74,19 +90,26 @@ export function Mail({ mails, isLoading }: MailProps) {
                   <form>
                     <div className="relative">
                       <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input placeholder="Search" className="pl-8" />
+                      <Input
+                        placeholder="Search"
+                        className="pl-8"
+                        value={searchQuery}
+                        onChange={handleSearchQuery}
+                      />
                     </div>
                   </form>
                 </div>
                 {isLoading ? (
                   <div className="h-24 text-center">Loading...</div>
-                ) : mails && mails.length > 0 ? (
+                ) : filteredMails && filteredMails.length > 0 ? (
                   <>
                     <TabsContent value="all" className="m-0">
-                      <MailList items={mails} />
+                      <MailList items={filteredMails} />
                     </TabsContent>
                     <TabsContent value="unread" className="m-0">
-                      <MailList items={mails.filter((item) => !item.read)} />
+                      <MailList
+                        items={filteredMails.filter((item) => !item.read)}
+                      />
                     </TabsContent>
                   </>
                 ) : (
