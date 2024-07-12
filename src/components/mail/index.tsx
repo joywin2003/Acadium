@@ -12,6 +12,7 @@ import { useMail } from "~/hooks/use-mail";
 import { useScreenDetector } from "~/hooks/useScreenDetector";
 import ComposeMail from "../compose-mail";
 import { MailDisplay } from "./mail-display";
+import { useSession } from "next-auth/react";
 
 interface MailProps {
   mails: Mail[];
@@ -25,7 +26,7 @@ export function Mail({ mails= [], isLoading }: MailProps) {
   const router = useRouter();
   const [mail] = useMail();
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
-
+  const { data: session } = useSession();
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -60,7 +61,7 @@ export function Mail({ mails= [], isLoading }: MailProps) {
     <div className="h-full w-full">
       <TooltipProvider delayDuration={0}>
         <div className="flex h-full max-h-[800px] items-stretch">
-          <ComposeMail />
+        {session?.user.role === "admin" && (<ComposeMail />)}
           <div className="flex w-full min-w-[200px] flex-col xl:w-2/5">
             <div className="flex h-full flex-col">
               <Tabs defaultValue="all" className="flex-1">
