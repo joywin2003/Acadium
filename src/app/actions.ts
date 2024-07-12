@@ -177,12 +177,14 @@ export const sendMail = async (mail: TMailSchema) => {
 
     const newMail: Mail = await db.mail.create({
       data: {
-        ...mail,
-        name: session.user?.name || "",
-        email: session.user?.email || "",
+        name: session.user?.name,
+        email: session.user?.email,
         id,
         read: false,
         date,
+        url: mail.url,
+        subject: mail.subject,
+        text: mail.text, 
       },
     });
     return newMail;

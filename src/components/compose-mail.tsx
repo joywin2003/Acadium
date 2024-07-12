@@ -53,6 +53,7 @@ export default function ComposeMail() {
     subject: "",
     text: "",
     image: [],
+    url: "",
     // labels: ["personal"],
   };
   const form = useForm<TMailSchema>({
@@ -64,10 +65,11 @@ export default function ComposeMail() {
     mutationFn: async (data: TMailSchema) => {
       if(data.image.length !== 0){
         const url = await uploadFile(data.image[0] as File);
-        data = { ...data, image: url };
+        console.log(url);
+        data = { ...data, image: [], url };
       }
       console.log(data); 
-      // return await sendMail(data);
+      return await sendMail(data);
       return;
     },
     onSuccess: () => {
