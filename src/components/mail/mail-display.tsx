@@ -27,7 +27,6 @@ interface MailDisplayProps {
 }
 
 export function MailDisplay({ mail, className }: MailDisplayProps) {
-  const today = new Date();
   const router = useRouter();
   const [config, setConfig] = useMail();
   const handleBack = () => {
