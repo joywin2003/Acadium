@@ -18,32 +18,18 @@ interface MailProps {
   isLoading?: boolean;
 }
 
-export function Mail({ mails, isLoading }: MailProps) {
+export function Mail({ mails= [], isLoading }: MailProps) {
   const [selectedMail, setSelected] = useState<Mail | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(""); // Add search query state
   const router = useRouter();
   const [mail] = useMail();
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const filteredMails = mails
-    .filter((mail) => {
-      if (!searchQuery) return true;
-      return mail.subject.toLowerCase().includes(searchQuery.toLowerCase());
-    })
-    .sort((a, b) => {
-      if (a.date > b.date) return -1;
-      if (a.date < b.date) return 1;
-      return 0;
-    });
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+  
 
   useEffect(() => {
     if (!mails || !mails.length) return;
@@ -59,6 +45,16 @@ export function Mail({ mails, isLoading }: MailProps) {
       }
     }
   }, [mail.selected, mails, isMobile, isDesktop, router]);
+
+  // Handle search query change
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  // Filter mails based on search query
+  const filteredMails = mails.filter(mail => 
+    mail.subject.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="h-full w-full">
@@ -90,11 +86,11 @@ export function Mail({ mails, isLoading }: MailProps) {
                   <form>
                     <div className="relative">
                       <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder="Search"
-                        className="pl-8"
+                      <Input 
+                        placeholder="Search" 
+                        className="pl-8" 
                         value={searchQuery}
-                        onChange={handleSearchQuery}
+                        onChange={handleSearchChange} // Handle search input change
                       />
                     </div>
                   </form>
@@ -107,9 +103,7 @@ export function Mail({ mails, isLoading }: MailProps) {
                       <MailList items={filteredMails} />
                     </TabsContent>
                     <TabsContent value="unread" className="m-0">
-                      <MailList
-                        items={filteredMails.filter((item) => !item.read)}
-                      />
+                      <MailList items={filteredMails.filter((item) => !item.read)} />
                     </TabsContent>
                   </>
                 ) : (
