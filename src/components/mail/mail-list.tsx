@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from "date-fns";
 import { ComponentProps } from "react";
 
-import { Mail } from "~/components/mail/data";
+import { Mail } from "~/types";
 import { Badge } from "~/components/ui/badge";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { useMail } from "~/hooks/use-mail";
@@ -17,7 +17,7 @@ export function MailList({ items }: MailListProps) {
   return (
     <ScrollArea className="h-screen pb-56">
       <div className="flex flex-col gap-2 p-4 pt-0">
-        {items.map((item) => (
+        {items.slice().reverse().map((item) => (
           <button
             key={item.id}
             className={cn(
@@ -25,6 +25,7 @@ export function MailList({ items }: MailListProps) {
               mail.selected === item.id && "bg-muted",
             )}
             onClick={() =>
+              
               setMail({
                 ...mail,
                 selected: item.id,
@@ -35,9 +36,9 @@ export function MailList({ items }: MailListProps) {
               <div className="flex items-center">
                 <div className="flex items-center gap-2">
                   <div className="font-semibold">{item.name}</div>
-                  {!item.read && (
+                  {/* {!item.read && (
                     <span className="flex h-2 w-2 rounded-full bg-blue-600" />
-                  )}
+                  )} */}
                 </div>
                 <div
                   className={cn(
