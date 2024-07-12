@@ -161,6 +161,8 @@ export const createFaculty = async (faculty: TFacultyFormSchema) => {
 export const sendMail = async (mail: TMailSchema) => {
   try {
     const validationResult = mailSchema.safeParse(mail);
+    console.log(1, validationResult);
+    console.log(2, mail);
     if (!validationResult.success) {
       throw new Error(
         "Validation error: " +

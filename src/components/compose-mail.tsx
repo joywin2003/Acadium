@@ -26,8 +26,13 @@ import { FileUploader } from "./file-uploader";
 
 
 async function uploadFile(file: File) {
-  const cloudinaryAPI = process.env.CLOUDINARY_API_KEY;
-  console.log(cloudinaryAPI);
+  const cloudinaryAPI = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+  const cloudinaryURL = process.env.NEXT_PUBLIC_CLOUDINARY_API_URL;
+
+  if (!cloudinaryAPI || !cloudinaryURL) {
+    console.error("Cloudinary API Key or URL is not set");
+    return;
+  }
 
   if ( typeof file === 'undefined' ) return;
 
@@ -38,7 +43,7 @@ async function uploadFile(file: File) {
   formData.append('api_key', `${cloudinaryAPI}`);
   console.log(2, formData);
 
-  const results = await fetch('https://api.cloudinary.com/v1_1/dxf13kwiz/image/upload', {
+  const results = await fetch(`${cloudinaryURL}`, {
     method: 'POST',
     body: formData
   }).then(r => r.json());
@@ -64,13 +69,13 @@ export default function ComposeMail() {
   const mutation = useMutation({
     mutationFn: async (data: TMailSchema) => {
       if(data.image.length !== 0){
+        console.log(data.image[0]);
         const url = await uploadFile(data.image[0] as File);
         console.log(url);
         data = { ...data, image: [], url };
       }
       console.log(data); 
       return await sendMail(data);
-      return;
     },
     onSuccess: () => {
       setOpen(false);
