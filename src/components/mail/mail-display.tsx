@@ -1,9 +1,9 @@
-"use client";;
+"use client";
 import { format } from "date-fns/format";
 import { Forward, MoreVertical, Reply, ReplyAll } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { Mail } from "~/components/mail/data";
+import { Mail } from "~/types";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import {
@@ -115,9 +115,17 @@ export function MailDisplay({ mail, className }: MailDisplayProps) {
             )}
           </div>
           <Separator />
-          <div className="flex-1 whitespace-pre-wrap p-4 text-sm">
+          <div className="flex whitespace-pre-wrap p-4 text-sm">
             {mail.text}
           </div>
+          <a
+            href={mail.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mx-auto my-12 flex items-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-gray-700"
+          >
+            <span>View File</span>
+          </a>
           <Separator className="mt-auto" />
         </div>
       ) : (
