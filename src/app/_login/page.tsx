@@ -42,6 +42,7 @@ export default function Login() {
 }
 
 import React, { use } from "react";
+import { compare } from "bcrypt-ts";
 
 const LoginForm = (role: { role: string }) => {
   const form = useForm<TLoginSchema>({
@@ -55,7 +56,6 @@ const LoginForm = (role: { role: string }) => {
   const router = useRouter();
   const onLogin = async (data: TLoginSchema) => {
     console.log(data);
-
     try {
       const myPromise = signIn("credentials", {
         redirect: false,

@@ -1,6 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import page from "~/app/admin/page";
+import { compare } from "bcrypt-ts";
 // import bcrypt from "bcryptjs";
 import { db } from "~/server/db";
 
@@ -32,12 +32,18 @@ export const authOptions:NextAuthOptions = {
             },
           });
 
+          
           if (!user || !user.password) {
             console.log("user not found");
             throw new Error("user not found");
           }
 
-          if (user.password !== credentials.password) {
+          const passwordIsCorrect = await compare(
+            credentials.password,
+            user.password,
+          );
+
+          if (!passwordIsCorrect) {
             console.log("Incorrect Passowrd");
             throw new Error("Incorrect Passowrd");
           }

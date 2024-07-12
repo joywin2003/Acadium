@@ -80,7 +80,7 @@ export default function ComposeMail() {
                 <FormItem>
                   <FormLabel>Subject</FormLabel>
                   <FormControl>
-                    <Input placeholder="Username" {...field} />
+                    <Input placeholder="Subject" {...field} />
                   </FormControl>
                 </FormItem>
               )}
@@ -125,7 +125,7 @@ export default function ComposeMail() {
             </div>
           )}
         />
-            <AlertDialogFooter>
+            <AlertDialogFooter className="flex justify-between my-4">
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <Button type="submit">Send</Button>
             </AlertDialogFooter>
