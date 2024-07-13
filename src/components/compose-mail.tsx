@@ -60,6 +60,8 @@ async function uploadFile(file: File) {
 
 export default function ComposeMail() {
   const [open, setOpen] = React.useState(false);
+  const [isUploading, setIsUploading] = React.useState(false);
+  let toastId: string | number;
   const defaultValues: TMailSchema = {
     subject: "",
     text: "",
@@ -74,6 +76,8 @@ export default function ComposeMail() {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: TMailSchema) => {
+      setIsUploading(true);
+      toastId = toast.loading("Loading")
       if (data.image.length !== 0) {
         console.log(data.image[0]);
         const url = await uploadFile(data.image[0] as File);
@@ -82,9 +86,12 @@ export default function ComposeMail() {
       }
       console.log(data);
       return await sendMail(data);
+
     },
     onSuccess: () => {
       setOpen(false);
+      setIsUploading(false);
+      toast.dismiss(toastId);
       toast.success("Mail sent successfully");
       queryClient.invalidateQueries({ queryKey: ["mail"] });
       form.reset(defaultValues);
@@ -158,7 +165,6 @@ export default function ComposeMail() {
                         // progresses={progresses}
                         // pass the onUpload function here for direct upload
                         // onUpload={handleOnSubmit(field.value[0])}
-                        // disabled={isUploading}
                       />
                     </FormControl>
                     {/* <FormMessage /> */}
@@ -168,7 +174,9 @@ export default function ComposeMail() {
             />
             <AlertDialogFooter className="my-4 flex justify-between">
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <Button type="submit">Send</Button>
+              <Button type="submit" disabled={isUploading}>
+                Send
+              </Button>
             </AlertDialogFooter>
           </form>
         </Form>
