@@ -5,12 +5,9 @@ import Link from "next/link";
 
 import Acadium from "~/components/acadium.json";
 import Login from "../app/_login/page";
-// import Lottie from "lottie-react"
+import Lottie from "lottie-react"
 import ThemeToggle from "./layout/ThemeToggle/theme-toggle";
 
-import dynamic from 'next/dynamic';
-
-const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 
 
