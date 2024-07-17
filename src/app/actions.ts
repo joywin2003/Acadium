@@ -1,15 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+//can be ignored as it is covered by zod validation
 "use server";
 
 import {
-  TFacultyFormSchema,
-  TMailSchema,
-  TStudentFormSchema,
+  type TFacultyFormSchema,
+  type TMailSchema,
+  type TStudentFormSchema,
   facultyFormSchema,
   mailSchema,
   studentFormSchema,
 } from "~/server/api/schema/zod-schema";
 import { db } from "~/server/db";
-import { Faculty, Student, User, Mail } from "~/types";
+import { type Faculty, type Student, type User, type Mail } from "~/types";
 import { getServerSession } from "next-auth";
 import cuid from "cuid";
 import { sub } from "date-fns";
@@ -47,11 +50,11 @@ export const getUserProfile = async (email: string) => {
   });
   console.log(user);
   const userTemp: User = {
-    id: user?.id || "",
+    id: user?.id ?? "",
     usn: "",
-    role: user?.role || "student",
-    name: user?.name || "",
-    email: user?.email || "",
+    role: user?.role ?? "student",
+    name: user?.name ?? "",
+    email: user?.email ?? "",
     branch: "CSE",
   };
 
@@ -95,7 +98,7 @@ export const createStudent = async (student: TStudentFormSchema) => {
     throw new Error("A student with this email already exists");
   } else {
     const hashedPassword = await hashPassword(student.name);
-    const newUser = await db.user.create({
+    await db.user.create({
       data: {
         email: student.email,
         name: student.name,
@@ -143,7 +146,7 @@ export const createFaculty = async (faculty: TFacultyFormSchema) => {
     throw new Error("A faculty with this email already exists");
   } else {
     const hashedPassword = await hashPassword(faculty.name);
-    const newUser = await db.user.create({
+    await db.user.create({
       data: {
         email: faculty.email,
         name: faculty.name,
