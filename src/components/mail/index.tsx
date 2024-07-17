@@ -59,10 +59,12 @@ export function Mail({ mails= [], isLoading }: MailProps) {
   );
 
   return (
+    <>{session?.user.role === "admin" && (<ComposeMail />)}
     <div className="h-full w-full">
+
       <TooltipProvider delayDuration={0}>
         <div className="flex h-full max-h-[800px] items-stretch">
-        {session?.user.role === "admin" && (<ComposeMail />)}
+        
           <div className="flex w-full min-w-[200px] flex-col xl:w-2/5">
             <div className="flex h-full flex-col">
               <Tabs defaultValue="all" className="flex-1">
@@ -123,5 +125,6 @@ export function Mail({ mails= [], isLoading }: MailProps) {
         </div>
       </TooltipProvider>
     </div>
+    </>
   );
 }

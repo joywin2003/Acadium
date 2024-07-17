@@ -20,6 +20,7 @@ import {
 } from "~/components/ui/tooltip";
 import { useMail } from "~/hooks/use-mail";
 import { cn } from "~/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface MailDisplayProps {
   mail: Mail | null;
@@ -35,103 +36,112 @@ export function MailDisplay({ mail, className }: MailDisplayProps) {
   };
 
   return (
-    <div className={cn("flex h-full flex-col", className)}>
-      <div className="flex items-center p-2">
-        <Button className="ml-2 px-8 py-4" size="icon" onClick={handleBack}>
-          Back
-        </Button>
-        <div className="ml-auto flex items-center gap-2">
-          <Tooltip>
-            <TooltipTrigger asChild>
+    <AnimatePresence>
+      <motion.div
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        initial={{ y: 300, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -300, opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className={cn("flex h-full flex-col", className)}
+      >
+        <div className="flex items-center p-2">
+          <Button className="ml-2 px-8 py-4" size="icon" onClick={handleBack}>
+            Back
+          </Button>
+          <div className="ml-auto flex items-center gap-2">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" disabled={!mail}>
+                  <Reply className="h-4 w-4" />
+                  <span className="sr-only">Reply</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Reply</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" disabled={!mail}>
+                  <ReplyAll className="h-4 w-4" />
+                  <span className="sr-only">Reply all</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Reply all</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" disabled={!mail}>
+                  <Forward className="h-4 w-4" />
+                  <span className="sr-only">Forward</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Forward</TooltipContent>
+            </Tooltip>
+          </div>
+          <Separator orientation="vertical" className="mx-2 h-6" />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" disabled={!mail}>
-                <Reply className="h-4 w-4" />
-                <span className="sr-only">Reply</span>
+                <MoreVertical className="h-4 w-4" />
+                <span className="sr-only">More</span>
               </Button>
-            </TooltipTrigger>
-            <TooltipContent>Reply</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" disabled={!mail}>
-                <ReplyAll className="h-4 w-4" />
-                <span className="sr-only">Reply all</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Reply all</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" disabled={!mail}>
-                <Forward className="h-4 w-4" />
-                <span className="sr-only">Forward</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Forward</TooltipContent>
-          </Tooltip>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>Mark as unread</DropdownMenuItem>
+              <DropdownMenuItem>Star thread</DropdownMenuItem>
+              <DropdownMenuItem>Add label</DropdownMenuItem>
+              <DropdownMenuItem>Mute thread</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-        <Separator orientation="vertical" className="mx-2 h-6" />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" disabled={!mail}>
-              <MoreVertical className="h-4 w-4" />
-              <span className="sr-only">More</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>Mark as unread</DropdownMenuItem>
-            <DropdownMenuItem>Star thread</DropdownMenuItem>
-            <DropdownMenuItem>Add label</DropdownMenuItem>
-            <DropdownMenuItem>Mute thread</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <Separator />
-      {mail ? (
-        <div className="flex flex-1 flex-col">
-          <div className="flex items-start p-4">
-            <div className="flex items-start gap-4 text-sm">
-              <Avatar>
-                <AvatarImage alt={mail.name} />
-                <AvatarFallback>
-                  {mail.name
-                    .split(" ")
-                    .map((chunk) => chunk[0])
-                    .join("")}
-                </AvatarFallback>
-              </Avatar>
-              <div className="grid gap-1">
-                <div className="font-semibold">{mail.name}</div>
-                <div className="line-clamp-1 text-xs">{mail.subject}</div>
-                <div className="line-clamp-1 text-xs">
-                  <span className="font-medium">Reply-To:</span> {mail.email}
+        <Separator />
+        {mail ? (
+          <div className="flex flex-1 flex-col">
+            <div className="flex items-start p-4">
+              <div className="flex items-start gap-4 text-sm">
+                <Avatar>
+                  <AvatarImage alt={mail.name} />
+                  <AvatarFallback>
+                    {mail.name
+                      .split(" ")
+                      .map((chunk) => chunk[0])
+                      .join("")}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="grid gap-1">
+                  <div className="font-semibold">{mail.name}</div>
+                  <div className="line-clamp-1 text-xs">{mail.subject}</div>
+                  <div className="line-clamp-1 text-xs">
+                    <span className="font-medium">Reply-To:</span> {mail.email}
+                  </div>
                 </div>
               </div>
+              {mail.date && (
+                <div className="ml-auto text-xs text-muted-foreground">
+                  {format(new Date(mail.date), "PPpp")}
+                </div>
+              )}
             </div>
-            {mail.date && (
-              <div className="ml-auto text-xs text-muted-foreground">
-                {format(new Date(mail.date), "PPpp")}
-              </div>
-            )}
+            <Separator />
+            <div className="flex whitespace-pre-wrap p-4 text-sm">
+              {mail.text}
+            </div>
+            <a
+              href={mail.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mx-auto my-12 flex items-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+            >
+              <span>View File</span>
+            </a>
+            <Separator className="mt-auto" />
           </div>
-          <Separator />
-          <div className="flex whitespace-pre-wrap p-4 text-sm">
-            {mail.text}
+        ) : (
+          <div className="p-8 text-center text-muted-foreground">
+            No message selected
           </div>
-          <a
-            href={mail.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mx-auto my-12 flex items-center rounded-md bg-black dark:bg-white dark:text-black px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-gray-700 dark:hover:bg-gray-200"
-          >
-            <span>View File</span>
-          </a>
-          <Separator className="mt-auto" />
-        </div>
-      ) : (
-        <div className="p-8 text-center text-muted-foreground">
-          No message selected
-        </div>
-      )}
-    </div>
+        )}
+      </motion.div>
+    </AnimatePresence>
   );
 }
