@@ -40,13 +40,13 @@ export default function Login() {
   );
 }
 
-const LoginForm = (role: { role: string }) => {
+const LoginForm = ({ role }: { role: "student" | "faculty" | "admin" | undefined }) => {
   const form = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
-      role: "student",
+      role: role,
     },
   });
   const router = useRouter();
