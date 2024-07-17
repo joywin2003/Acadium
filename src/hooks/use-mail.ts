@@ -1,7 +1,6 @@
 import { atom, useAtom } from "jotai";
-import { getMailList } from "~/app/actions";
 
-import { Mail } from "~/types";
+import { type Mail } from "~/types";
 
 
 type Config = {

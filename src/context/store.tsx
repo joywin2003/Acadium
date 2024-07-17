@@ -1,7 +1,7 @@
 "use client";
 
-import React, { createContext,useContext, SetStateAction, Dispatch } from "react";
-import { Mail } from "~/types";
+import React, { createContext,useContext, type SetStateAction } from "react";
+import { type Mail } from "~/types";
 
 interface ContextProps {
     mailContext: Mail[] | null;
@@ -10,6 +10,7 @@ interface ContextProps {
 
 const GlobalContext = createContext<ContextProps | null>({
     mailContext: null,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     setMailContext: () => {},
 }); 
 
