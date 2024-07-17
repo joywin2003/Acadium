@@ -36,7 +36,7 @@ export function MailDisplay({ mail, className }: MailDisplayProps) {
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       <motion.div
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         initial={{ y: 300, opacity: 0 }}

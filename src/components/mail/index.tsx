@@ -26,7 +26,7 @@ export function Mail({ mails= [], isLoading }: MailProps) {
   const [searchQuery, setSearchQuery] = useState(""); // Add search query state
   const router = useRouter();
   const [mail] = useMail();
-  const { isMobile, isDesktop } = useScreenDetector();
+  const { isMobile,isTablet, isDesktop } = useScreenDetector();
   const { data: session } = useSession();
   useEffect(() => {
     setIsClient(true);
@@ -40,13 +40,13 @@ export function Mail({ mails= [], isLoading }: MailProps) {
     setSelected(selectedMail);
 
     if (selectedMail) {
-      if (isMobile) {
+      if (isMobile || isTablet) {
         router.push(`dashboard/mail/${selectedMail.id}`);
       } else if (isDesktop) {
         router.replace("/dashboard/");
       }
     }
-  }, [mail.selected, mails, isMobile, isDesktop, router]);
+  }, [mail.selected, mails, isMobile, isTablet, isDesktop, router]);
 
   // Handle search query change
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
