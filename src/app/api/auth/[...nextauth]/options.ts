@@ -4,6 +4,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt-ts";
 import { db } from "~/server/db";
 
+
+
 export const authOptions:NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -18,7 +20,7 @@ export const authOptions:NextAuthOptions = {
           type: "password",
         },
       },
-      async authorize(credentials): Promise<any> {
+      async authorize(credentials) {
         console.log(credentials);
         if (!credentials?.email || !credentials?.password) {
             console.log("invalid credentials");
