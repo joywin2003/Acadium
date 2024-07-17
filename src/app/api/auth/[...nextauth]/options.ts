@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt-ts";
-// import bcrypt from "bcryptjs";
 import { db } from "~/server/db";
 
 export const authOptions:NextAuthOptions = {
@@ -33,15 +33,19 @@ export const authOptions:NextAuthOptions = {
           });
 
           
-          if (!user || !user.password) {
+          if (!user?.password) {
             console.log("user not found");
             throw new Error("user not found");
           }
+
+          console.log(user?.password);
 
           const passwordIsCorrect = await compare(
             credentials.password,
             user.password,
           );
+
+          console.log(passwordIsCorrect);
 
           if (!passwordIsCorrect) {
             console.log("Incorrect Passowrd");
@@ -56,7 +60,7 @@ export const authOptions:NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: any, user: any }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id?.toString();
         token.role = user.role;
@@ -65,7 +69,7 @@ export const authOptions:NextAuthOptions = {
       }
       return token;
     },
-    async session({ session, token }: { session: any, token: any }) {
+    async session({ session, token }) {
       if (token) {
         session.user.id = token.id?.toString();
         session.user.role = token.role;
