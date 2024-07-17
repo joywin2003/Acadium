@@ -1,5 +1,4 @@
 import "next-auth";
-import { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {
   interface Session {
@@ -8,6 +7,7 @@ declare module "next-auth" {
       role: string;
       name: string;
       email: string;
+    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
     } & DefaultSession["session"];
   } 
 

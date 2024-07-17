@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -16,7 +15,7 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { TLoginSchema, loginSchema } from "~/server/api/schema/zod-schema";
+import { type TLoginSchema, loginSchema } from "~/server/api/schema/zod-schema";
 
 export default function Login() {
   return (
@@ -41,9 +40,6 @@ export default function Login() {
   );
 }
 
-import React, { use } from "react";
-import { compare } from "bcrypt-ts";
-
 const LoginForm = (role: { role: string }) => {
   const form = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -61,6 +57,7 @@ const LoginForm = (role: { role: string }) => {
         redirect: false,
         email: data.email,
         password: data.password,
+        role: role,
       });
 
       toast.promise(myPromise, {
