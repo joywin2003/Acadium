@@ -9,7 +9,7 @@ import { Button } from "~/components/ui/button";
 import { DataTable } from "~/components/ui/data-table";
 import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
-import { Student } from "~/types";
+import { type Student } from "~/types";
 import { columns } from "./columns";
 
 export const StudentTable: React.FC = () => {
@@ -46,7 +46,7 @@ export const StudentTable: React.FC = () => {
           message={`Oops! We couldn't fetch the requested data right now. Please try again later.`}
         />
       ) : (
-        <DataTable searchKey="name" columns={columns} loading={isLoading} data={data || []} />
+        <DataTable searchKey="name" columns={columns} loading={isLoading} data={data ?? []} />
       )}
     </>
   );

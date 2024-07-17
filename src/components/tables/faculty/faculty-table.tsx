@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
@@ -9,7 +10,7 @@ import { Button } from "~/components/ui/button";
 import { DataTable } from "~/components/ui/data-table";
 import { Heading } from "~/components/ui/heading";
 import { Separator } from "~/components/ui/separator";
-import { Faculty } from "~/types";
+import { type Faculty } from "~/types";
 import { columns } from "./columns";
 
 export const FacultyTable: React.FC = () => {
@@ -45,7 +46,7 @@ export const FacultyTable: React.FC = () => {
           message={`Oops! We couldn't fetch the requested data right now. Please try again later.`}
         />
       ) : (
-        <DataTable searchKey="name" loading={isLoading} columns={columns} data={data || []} />
+        <DataTable searchKey="name" loading={isLoading} columns={columns} data={data ?? []} />
       )}
     </>
   );

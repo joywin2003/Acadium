@@ -3,7 +3,7 @@ import { format } from "date-fns/format";
 import { Forward, MoreVertical, Reply, ReplyAll } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { Mail } from "~/types";
+import { type Mail } from "~/types";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import {

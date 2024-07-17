@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button } from '../ui/button';
 import { signOut } from "next-auth/react"
 import { toast } from 'sonner';
+import { getErrorMessage } from '~/lib/handle-error';
 
 export default function Header() {
   return (
@@ -37,7 +38,14 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button onClick={() => {toast.message("Logged out"); signOut()}}>Logout</Button>
+          <Button onClick={async() => {
+            try {
+              await signOut();
+              toast.success('Logged out successfully');
+            } catch (error) {
+              toast.error(getErrorMessage(error));
+            }
+          }}>Logout</Button>
           <ThemeToggle />
         </div>
       </nav>

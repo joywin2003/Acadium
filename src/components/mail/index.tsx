@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -25,7 +26,7 @@ export function Mail({ mails= [], isLoading }: MailProps) {
   const [searchQuery, setSearchQuery] = useState(""); // Add search query state
   const router = useRouter();
   const [mail] = useMail();
-  const { isMobile, isTablet, isDesktop } = useScreenDetector();
+  const { isMobile, isDesktop } = useScreenDetector();
   const { data: session } = useSession();
   useEffect(() => {
     setIsClient(true);
@@ -33,9 +34,9 @@ export function Mail({ mails= [], isLoading }: MailProps) {
   
 
   useEffect(() => {
-    if (!mails || !mails.length) return;
+    if (!mails?.length) return;
     const selectedMail =
-      mails.find((item) => item.id === mail.selected) || null;
+      mails.find((item) => item.id === mail.selected) ?? null;
     setSelected(selectedMail);
 
     if (selectedMail) {
@@ -116,7 +117,7 @@ export function Mail({ mails= [], isLoading }: MailProps) {
           <div className="w-[1px] bg-gray-100 dark:bg-gray-800"></div>
           <div className="flex-1">
             {isClient && isDesktop ? (
-              <MailDisplay mail={selectedMail || null} />
+              <MailDisplay mail={selectedMail ?? null} />
             ) : null}
           </div>
         </div>
