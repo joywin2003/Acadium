@@ -7,7 +7,8 @@ import Providers from "~/components/layout/providers";
 
 export const metadata = {
   title: "Acadium",
-  description: "Centralized management system",
+  description:
+    "Centralized management system for colleges, enabling efficient oversight of students, faculty, and administrative tasks. Built using Nextjs, Tailwind, NextAuth and Prisma",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
