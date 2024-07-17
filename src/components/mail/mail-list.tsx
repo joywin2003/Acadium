@@ -15,7 +15,7 @@ export function MailList({ items }: MailListProps) {
   const [mail, setMail] = useMail();
 
   return (
-    <ScrollArea className="h-screen pb-56">
+    <ScrollArea className="h-screen pb-44">
       <div className="flex flex-col gap-2 p-4 pt-0">
         {items.slice().reverse().map((item) => (
           <button
