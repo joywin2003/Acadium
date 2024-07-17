@@ -1,14 +1,14 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PenIcon } from "lucide-react";
 import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { sendMail } from "~/app/actions";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -18,19 +18,17 @@ import {
   AlertDialogTrigger,
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
-import { TMailSchema, mailSchema } from "~/server/api/schema/zod-schema";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
+import { type TMailSchema, mailSchema } from "~/server/api/schema/zod-schema";
+import { FileUploader } from "./file-uploader";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { FileUploader } from "./file-uploader";
-import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import { getErrorMessage } from "~/lib/handle-error";
+
+interface CloudinaryResponse {
+  url: string;
+  // other properties if expected
+}
 
 async function uploadFile(file: File) {
   const cloudinaryAPI = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
@@ -49,11 +47,11 @@ async function uploadFile(file: File) {
   formData.append("upload_preset", "q9e18w3l");
   formData.append("api_key", `${cloudinaryAPI}`);
   console.log(2, formData);
-
-  const results = await fetch(`${cloudinaryURL}`, {
+  const results = (await fetch(`${cloudinaryURL}`, {
     method: "POST",
     body: formData,
-  }).then((r) => r.json());
+  }).then((r) => r.json())) as CloudinaryResponse; // Type assertion
+
   console.log(results.url);
   return results.url;
 }
@@ -77,27 +75,26 @@ export default function ComposeMail() {
   const mutation = useMutation({
     mutationFn: async (data: TMailSchema) => {
       setIsUploading(true);
-      toastId = toast.loading("Loading")
+      toastId = toast.loading("Loading");
       if (data.image.length !== 0) {
         console.log(data.image[0]);
-        const url = await uploadFile(data.image[0] as File);
+        const url = await uploadFile(data.image[0]!);
         console.log(url);
-        data = { ...data, image: [], url };
+        data = { ...data, image: [], url: url ?? "" };
       }
       console.log(data);
       return await sendMail(data);
-
     },
     onSuccess: () => {
       setOpen(false);
       setIsUploading(false);
       toast.dismiss(toastId);
       toast.success("Mail sent successfully");
-      queryClient.invalidateQueries({ queryKey: ["mail"] });
+      void queryClient.invalidateQueries({ queryKey: ["mail"] });
       form.reset(defaultValues);
     },
-    onError: (error: any) => {
-      toast.error(error.message);
+    onError: (error) => {
+      toast.error(getErrorMessage(error));
     },
   });
   return (

@@ -1,4 +1,4 @@
-import { NavItem, SidebarNavItem } from "~/types";
+import { type NavItem, type SidebarNavItem } from "~/types";
 
 export const navItems: NavItem[] = [
   {

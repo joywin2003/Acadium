@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { Plus } from "lucide-react";

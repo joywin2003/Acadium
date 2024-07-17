@@ -31,7 +31,7 @@ export default function AuthenticationPage() {
             Acadium
           </div>
 
-          <Lottie src={Acadium} className="mt-12" height={450} />
+          <Lottie src={Acadium.v} className="mt-12" height={450} />
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-md">
