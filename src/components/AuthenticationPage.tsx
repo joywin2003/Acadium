@@ -1,9 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+"use client";
+
 import Link from "next/link";
 
 import Acadium from "~/components/acadium.json";
 import Login from "../app/_login/page";
-import { Lottie } from "./common/lottie";
+// import Lottie from "lottie-react"
 import ThemeToggle from "./layout/ThemeToggle/theme-toggle";
+
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
+
+
 
 export default function AuthenticationPage() {
   return (
@@ -31,7 +40,7 @@ export default function AuthenticationPage() {
             Acadium
           </div>
 
-          <Lottie src={Acadium.v} className="mt-12" height={450} />
+          <Lottie animationData={Acadium} className="mt-12 h-[70%]" />
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-md">
