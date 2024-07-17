@@ -7,9 +7,10 @@ import { Mail } from "~/components/mail";
 import { useGlobalContext } from "~/context/store";
 import { type Mail as MailType } from '~/types';
 
-export default function page() {
-  const {mailContext, setMailContext} = useGlobalContext();
+export default function Page() {
+  const {setMailContext} = useGlobalContext();
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const {data,isLoading, error} = useQuery<MailType[] | null, Error>({
     queryKey: ["mail1"],
     queryFn: async () => await getMailList(),
@@ -22,11 +23,11 @@ export default function page() {
     if (data) {
       setMailContext(data);
     }
-  }, [data]);
+  }, [data, setMailContext]);
   return (
     <div className="flex-col md:flex">
       <Mail
-        mails={data as MailType[]}
+        mails={data!}
         isLoading={isLoading}
       />
     </div>

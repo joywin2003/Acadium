@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";;
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -14,18 +16,18 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { User } from "~/types";
+import { type User } from "~/types";
 
 interface ProfileProps {
   params: { id: string };
 }
 
-const Profile: React.FC<ProfileProps> = ({ params }) => {
+const Profile: React.FC<ProfileProps> = () => {
   const { data: session } = useSession();
   const email = session?.user.email;
   const { data, error, isLoading } = useQuery<User | null, Error>({
     queryKey: ["user"],
-    queryFn: async () => await getUserProfile(email),
+    queryFn: async () => await getUserProfile(email as string),
   });
 
   if (isLoading) return <div>Loading...</div>;
