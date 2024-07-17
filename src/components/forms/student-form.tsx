@@ -45,7 +45,7 @@ export default function StudentForm() {
     },
     onSuccess: () => {
       toast.success("Student created successfully");
-      queryClient.invalidateQueries({ queryKey: ["student"] });
+      void queryClient.invalidateQueries({ queryKey: ["student"] });
       form.reset(defaultValues);
     },
     onError: (error) => {

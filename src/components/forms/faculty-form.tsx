@@ -51,7 +51,7 @@ export function FacultyForm() {
     },
     onSuccess: () => {
       toast.success("Faculty added successfully");
-      queryClient.invalidateQueries({ queryKey: ["faculty"] });
+      void queryClient.invalidateQueries({ queryKey: ["faculty"] });
       form.reset(defaultValues);
     },
     onError: (error) => {

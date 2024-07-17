@@ -14,7 +14,7 @@ export const Lottie = ({
   className?: string;
   width?: number;
   height?: number;
-  src: any;
+  src: string;
 }) => {
   return (
     <DotLottiePlayer
