@@ -33,12 +33,12 @@ export type SidebarNavItem = NavItemWithChildren;
 
 
 export interface User {
-  id: string;
-  usn: string;
-  email: string;
-  role: string;
-  name: string;
-  branch: string;
+  id: string | undefined;
+  usn?: string |undefined;
+  email: string |undefined;
+  role: string | undefined;
+  name: string | undefined;
+  branch?: string |undefined;
 }
 
 export type Student = {
