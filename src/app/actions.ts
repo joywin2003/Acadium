@@ -45,19 +45,26 @@ export const getFacultyList = async () => {
 };
 
 export const getUserProfile = async (email: string) => {
+  let student
   const user = await db.user.findUnique({
-    where: { id: email },
+    where: { email: email },
+    
   });
+  if(user?.role == "student"){
+     student = await db.student.findUnique({
+      where: { email: email },
+
+    })
+  }
   console.log(user);
   const userTemp: User = {
-    id: user?.id ?? "",
-    usn: "",
-    role: user?.role ?? "student",
-    name: user?.name ?? "",
-    email: user?.email ?? "",
+    id: user?.id,
+    usn: student?.usn,
+    role: user?.role,
+    name: user?.name ,
+    email: user?.email,
     branch: "CSE",
   };
-
   return userTemp;
 };
 
@@ -113,6 +120,8 @@ export const createStudent = async (student: TStudentFormSchema) => {
   });
   return newStudent;
 };
+
+
 
 export const createFaculty = async (faculty: TFacultyFormSchema) => {
   const validationResult = facultyFormSchema.safeParse(faculty);
