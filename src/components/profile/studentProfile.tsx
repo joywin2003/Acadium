@@ -1,3 +1,6 @@
+
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";

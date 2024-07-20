@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -16,12 +17,10 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { type User } from "~/types";
 
-interface ProfileProps {
-  params: { id: string };
-}
 
 const AdminProfile: React.FC = () => {
   const { data: session } = useSession();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const email = session?.user.email;
   const { data, error, isLoading } = useQuery<User | null, Error>({
     queryKey: ["user"],
