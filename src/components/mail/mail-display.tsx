@@ -20,7 +20,10 @@ import {
 } from "~/components/ui/tooltip";
 import { useMail } from "~/hooks/use-mail";
 import { cn } from "~/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, m } from "framer-motion";
+import { useMutation } from "@tanstack/react-query";
+import { setMailAsRead } from "~/app/actions";
+import { useEffect } from "react";
 
 interface MailDisplayProps {
   mail: Mail | null;
@@ -34,6 +37,18 @@ export function MailDisplay({ mail, className }: MailDisplayProps) {
     setConfig({ ...config, selected: null });
     router.replace("/dashboard/");
   };
+  const mutation = useMutation({
+    mutationFn: async () => {
+      if (mail && !mail.read) {
+        console.log("Setting mail as read");
+        await setMailAsRead(mail?.id);
+      }
+    },
+  });
+  useEffect(() => {
+    void mutation.mutateAsync();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mail]);
 
   return (
     <AnimatePresence mode="wait">

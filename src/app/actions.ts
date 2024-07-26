@@ -218,3 +218,22 @@ export const getMailList = async () => {
     throw err;
   }
 };
+
+export const setMailAsRead = async (id: string) => {
+  try {
+    const mail = await db.mail.findUnique({
+      where: { id },
+    });
+    if (!mail) {
+      throw new Error("Mail not found");
+    }
+    const updatedMail = await db.mail.update({
+      where: { id },
+      data: { read: true },
+    });
+    return updatedMail;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
