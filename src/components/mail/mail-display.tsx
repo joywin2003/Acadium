@@ -21,7 +21,7 @@ import {
 import { useMail } from "~/hooks/use-mail";
 import { cn } from "~/lib/utils";
 import { motion, AnimatePresence, m } from "framer-motion";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { setMailAsRead } from "~/app/actions";
 import { useEffect } from "react";
 
@@ -37,12 +37,17 @@ export function MailDisplay({ mail, className }: MailDisplayProps) {
     setConfig({ ...config, selected: null });
     router.replace("/dashboard/");
   };
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async () => {
       if (mail && !mail.read) {
+        mail.read = true;
         console.log("Setting mail as read");
         await setMailAsRead(mail?.id);
       }
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ["mail"] });
     },
   });
   useEffect(() => {
