@@ -23,7 +23,7 @@ interface MailProps {
 export function Mail({ mails= [], isLoading }: MailProps) {
   const [selectedMail, setSelected] = useState<Mail | null>(null);
   const [isClient, setIsClient] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(""); // Add search query state
+  const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
   const [mail] = useMail();
   const { isMobile,isTablet, isDesktop } = useScreenDetector();

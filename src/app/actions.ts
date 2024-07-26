@@ -210,7 +210,13 @@ export const sendMail = async (mail: TMailSchema) => {
 
 export const getMailList = async () => {
   try {
-    const mails: Mail[] = await db.mail.findMany();
+    const mails: Mail[] = await db.mail.findMany(
+      {
+        orderBy: {
+          date: 'desc', 
+        },
+      }
+    );
     console.log(1, mails);
     return mails;
   } catch (err) {
