@@ -27,6 +27,7 @@ Acadium is a comprehensive college management platform designed to streamline ad
 ### Data Management
 - **React Query**: Utilizes React Query for efficient data fetching and caching of mails, students, profiles, and faculty.
 - **Server Actions**: Implements Next.js Server Actions for asynchronous server-side functions.
+- **Schema Validation**: Zod Schema validation done in both frontend and backend for all forms and functions
 
 ### Database
 - **PostgreSQL with Prisma ORM**: The platform uses a PostgreSQL database managed with Prisma ORM, providing robust and efficient database solutions.
@@ -44,7 +45,7 @@ Acadium is a comprehensive college management platform designed to streamline ad
 
 ## Technologies Used
 
-- **Frontend**: Next.js, Tailwind CSS, Shadcn  
+- **Frontend**: Next.js, Tailwind CSS, Shadcn, Zod  
 - **Backend**: Next.js Server Actions, Prisma ORM with PostgreSQL  
 - **Database**: Neon DB (Serverless PostgreSQL)  
 - **Data Management**: React Query  
