@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0" version="24.7.5">
   <diagram name="Page-1" id="j89aKlz93b5TGSYL8AUA">
-    <mxGraphModel dx="1434" dy="2959" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2206" dy="3368" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -82,7 +82,7 @@
         <mxCell id="ADhmlWPzkc6fnc0obbjc-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ADhmlWPzkc6fnc0obbjc-28" target="ADhmlWPzkc6fnc0obbjc-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ADhmlWPzkc6fnc0obbjc-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=circle;startFill=1;" parent="1" source="ADhmlWPzkc6fnc0obbjc-28" target="ADhmlWPzkc6fnc0obbjc-57" edge="1">
+        <mxCell id="oQRoViD-Vlb25wwIG34T-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=circle;startFill=1;" edge="1" parent="1" source="ADhmlWPzkc6fnc0obbjc-28" target="oQRoViD-Vlb25wwIG34T-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="ADhmlWPzkc6fnc0obbjc-28" value="&lt;div&gt;Dept. Secratory&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=middle;html=1;outlineConnect=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="1" vertex="1">
@@ -173,6 +173,12 @@
         </mxCell>
         <mxCell id="ADhmlWPzkc6fnc0obbjc-70" value="Recive" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="510" y="-1680" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oQRoViD-Vlb25wwIG34T-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="oQRoViD-Vlb25wwIG34T-1" target="ADhmlWPzkc6fnc0obbjc-57">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oQRoViD-Vlb25wwIG34T-1" value="Post" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="-1830" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
