@@ -20,7 +20,10 @@ import {
 } from "~/components/ui/tooltip";
 import { useMail } from "~/hooks/use-mail";
 import { cn } from "~/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, m } from "framer-motion";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { setMailAsRead } from "~/app/actions";
+import { useEffect } from "react";
 
 interface MailDisplayProps {
   mail: Mail | null;
@@ -34,6 +37,23 @@ export function MailDisplay({ mail, className }: MailDisplayProps) {
     setConfig({ ...config, selected: null });
     router.replace("/dashboard/");
   };
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: async () => {
+      if (mail && !mail.read) {
+        mail.read = true;
+        console.log("Setting mail as read");
+        await setMailAsRead(mail?.id);
+      }
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ["mail"] });
+    },
+  });
+  useEffect(() => {
+    void mutation.mutateAsync();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mail]);
 
   return (
     <AnimatePresence mode="wait">
@@ -126,14 +146,16 @@ export function MailDisplay({ mail, className }: MailDisplayProps) {
             <div className="flex whitespace-pre-wrap p-4 text-sm">
               {mail.text}
             </div>
-            <a
-              href={mail.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mx-auto my-12 flex items-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200"
-            >
-              <span>View File</span>
-            </a>
+            {mail.url && (
+              <a
+                href={mail.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mx-auto my-12 flex items-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+              >
+                <span>View File</span>
+              </a>
+            )}
             <Separator className="mt-auto" />
           </div>
         ) : (

@@ -210,7 +210,13 @@ export const sendMail = async (mail: TMailSchema) => {
 
 export const getMailList = async () => {
   try {
-    const mails: Mail[] = await db.mail.findMany();
+    const mails: Mail[] = await db.mail.findMany(
+      {
+        orderBy: {
+          date: 'desc', 
+        },
+      }
+    );
     console.log(1, mails);
     return mails;
   } catch (err) {
@@ -218,3 +224,22 @@ export const getMailList = async () => {
     throw err;
   }
 };
+
+export const setMailAsRead = async (id: string) => {
+  try {
+    const mail = await db.mail.findUnique({
+      where: { id },
+    });
+    if (!mail) {
+      throw new Error("Mail not found");
+    }
+    const updatedMail = await db.mail.update({
+      where: { id },
+      data: { read: true },
+    });
+    return updatedMail;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
